@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "227464212561",
+    "project_id": "discover-mada",
+    "storage_bucket": "discover-mada.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227464212561:android:51bfbec08facb1bb740870",
+        "android_client_info": {
+          "package_name": "com.example.discovermada"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "227464212561-t6b900b28prv4kkgpbuqe8bhcjq0f6vp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBU0DJS7jRSjsN2ez3e8Ac8R9MXWog9V_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "227464212561-t6b900b28prv4kkgpbuqe8bhcjq0f6vp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

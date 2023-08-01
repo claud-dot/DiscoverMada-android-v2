@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:title="Burger" android:id="@+id/item_burger"  app:showAsAction="always|collapseActionView" android:icon="@drawable/burger"/>
+    <item android:title="Search" android:id="@+id/item_search" android:icon="@drawable/search"  app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="always|collapseActionView"/>
+    <item android:title="Langue" android:id="@+id/item_lang"  app:showAsAction="always|collapseActionView" android:icon="@drawable/lang"/>
+    <item android:title="Settings" android:id="@+id/item_settings"  app:showAsAction="ifRoom" android:icon="@drawable/settings"/>
+</menu>
