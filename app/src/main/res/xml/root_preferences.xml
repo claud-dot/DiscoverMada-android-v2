@@ -1,35 +1,30 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <PreferenceCategory app:title="@string/preference">
 
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
+        <SwitchPreference
+            app:defaultValue="true"
+            app:key="notif_preference"
+            app:title="@string/notifcation" />
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="mod_preference"
+            app:title="@string/drak_mode"/>
 
         <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
+            app:defaultValue="fr"
+            app:entries="@array/langues"
+            app:entryValues="@array/lang_values"
+            app:key="lang_preference"
+            app:title="@string/default_laguage"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
-
-    <PreferenceCategory app:title="@string/sync_header">
-
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
-
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
-
-    </PreferenceCategory>
+    <Preference
+        app:key="restore_default_preference"
+        app:title="@string/default_restor"
+        app:summary="@string/restor_sumary"
+        app:icon="@drawable/restore" />
 
 </PreferenceScreen>

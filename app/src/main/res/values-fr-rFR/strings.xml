@@ -1,4 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">DiscoverMada</string>
+
+    <!--    preference user-->
+    <string name="preference" translatable="true">Préfénces</string>
+    <string name="notifcation" translatable="true">Recevoir de notification</string>
+    <string name="drak_mode" translatable="true">Mode sombre</string>
+    <string name="default_laguage" translatable="true">Langue par defaut</string>
+    <string name="title_activity_settings" translatable="true">Paramètres</string>
+    <string name="default_restor" translatable="true">Restaurer par defaut</string>
+    <string name="restor_sumary" translatable="true">Restaurer les paramètres par défaut</string>
+
+    <!--    message Box-->
+    <string name="restor_title_show" translatable="false">Restaurer par defaut</string>
+    <string name="restor_message_show" translatable="false">Voulez-vous restaurer les paramètres par défaut?</string>
+    <string name="restor_accept_show" translatable="false">Oui</string>
+    <string name="restor_refuse_show" translatable="false">Non</string>
+
+
+
+    <!--    app text-->
+    <string name="title_list_spot" translatable="true">Les meilleures attractions touristiques de Madagascar</string>
+    <string name="sub_title_list_spot" translatable="true">Guide des meilleures attractions touristiques à découvrir lors de votre voyage à Madagascar</string>
+    <string-array name="langues" translatable="true">
+        <item>Français</item>
+        <item>Anglais</item>
+    </string-array>
+
+    <string-array name="lang_values">
+        <item>fr</item>
+        <item>en</item>
+    </string-array>
 </resources>

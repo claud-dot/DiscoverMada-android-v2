@@ -1,44 +1,32 @@
 <resources>
-    <string name="app_name">DiscoverMada</string>
-    <!-- Strings related to login -->
-    <string name="prompt_email" translatable="false">Email</string>
-    <string name="prompt_password" translatable="false">Password</string>
-    <string name="action_sign_in" translatable="false">Sign in or register</string>
-    <string name="action_sign_in_short" translatable="false">Sign in</string>
-    <string name="welcome" translatable="false">"Welcome!"</string>
-    <string name="invalid_username" translatable="false">Not a valid username</string>
-    <string name="invalid_password" translatable="false">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="app_name" translatable="false">DiscoverMada</string>
+    <string name="title_activity_settings" translatable="false">Settings</string>
 
-    <string-array name="langues">
-        <item>Fr</item>
-        <item>En</item>
+    <!--    preference user-->
+    <string name="preference" translatable="false">Prefences</string>
+    <string name="notifcation" translatable="false">Receive notification</string>
+    <string name="drak_mode" translatable="false">Dark mode</string>
+    <string name="default_laguage" translatable="false">Default language</string>
+    <string name="default_restor" translatable="false">Restore Defaults</string>
+    <string name="restor_sumary" translatable="false">Restore default settings</string>
+
+<!--    message Box-->
+    <string name="restor_title_show" translatable="false">Restore Defaults</string>
+    <string name="restor_message_show" translatable="false">Do you want to restore default settings?</string>
+    <string name="restor_accept_show" translatable="false">Yes</string>
+    <string name="restor_refuse_show" translatable="false">No</string>
+
+    <!--    app text-->
+    <string name="title_list_spot" translatable="false">The best tourist attractions of Madagascar</string>
+    <string name="sub_title_list_spot" translatable="false">Guides of the best tourist attractions to discover during your trip to Madagascar</string>
+
+    <string-array name="langues" translatable="false">
+        <item>French</item>
+        <item>English</item>
     </string-array>
 
     <string-array name="lang_values">
         <item>fr</item>
         <item>en</item>
     </string-array>
-
-    <string name="notifcation" translatable="false">Receive notification</string>
-
-    <string name="title_list_spot">The best tourist attractions of Madagascar</string>
-    <string name="sub_title_list_spot">Guides of the best tourist attractions to discover during your trip to Madagascar</string>
-
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>

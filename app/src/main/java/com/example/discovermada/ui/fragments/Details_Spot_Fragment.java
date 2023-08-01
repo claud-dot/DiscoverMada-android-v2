@@ -1,6 +1,8 @@
 package com.example.discovermada.ui.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +28,7 @@ import com.example.discovermada.api.JsonConverter;
 import com.example.discovermada.api.JsonConverterImpl;
 import com.example.discovermada.model.TouristSpots;
 import com.example.discovermada.utils.FireBaseClient;
+import com.example.discovermada.utils.PreferenceUtils;
 import com.example.discovermada.utils.Utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -51,6 +54,7 @@ public class Details_Spot_Fragment extends Fragment {
     private WebView webView;
     private ImageView spotImage;
     private List<ImageView> listSpotImg = new ArrayList<>();
+    private TouristSpots spotDetails;
 
     public static Details_Spot_Fragment newInstance(TouristSpots touristSpot) {
         Details_Spot_Fragment fragment = new Details_Spot_Fragment();
@@ -63,6 +67,7 @@ public class Details_Spot_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        PreferenceUtils.applyAppTheme(requireContext());
         String idSpot = getArguments().getString("spot_id");
         View rootView = inflater.inflate(R.layout.fragment_details__spot_, container, false);
         super.onCreate(savedInstanceState);
@@ -76,7 +81,12 @@ public class Details_Spot_Fragment extends Fragment {
 
         listSpotImg.add(spotImage);
         Utils.initImagesSpot(rootView , listSpotImg);
-        getDetailsSpot(idSpot);
+
+        if(spotDetails==null){
+            getDetailsSpot(idSpot);
+        }else {
+            generateView(spotDetails, new FireBaseClient(storage));
+        }
         return rootView;
     }
 
@@ -85,8 +95,6 @@ public class Details_Spot_Fragment extends Fragment {
         int id = item.getItemId();
         Log.d("BACK ", "onOptionsItemSelected: *");
         if (id == android.R.id.home) {
-            // Effectuer l'action de retour souhaitée ici
-            // Par exemple, retourner à la Fragment List_Spot
             requireActivity().getSupportFragmentManager().popBackStack();
             return true;
         }
@@ -96,15 +104,15 @@ public class Details_Spot_Fragment extends Fragment {
    public void getDetailsSpot(String idSpot){
         CallApiServiceImpl<List<TouristSpots>> callApiService = new CallApiServiceImpl<>(new JsonConverterImpl<>(new TypeReference<List<TouristSpots>>() {}));
         ApiService apiService = ApiClient.getApiService();
-        Call<ResponseBody> call = apiService.getDetailsSpot(idSpot , "fr");
+        Call<ResponseBody> call = apiService.getDetailsSpot(idSpot , PreferenceUtils.currentLang(requireContext()));
         callApiService.handle(call, new ApiResponseCallback() {
             @Override
             public void onSuccess(JSONObject data) throws JSONException {
                 JsonConverter<TouristSpots> jsonConverter = new JsonConverterImpl<>((new TypeReference<TouristSpots>() {}));
                 try {
-                    TouristSpots spot = jsonConverter.convert(data.getJSONObject("data"));
+                    spotDetails = jsonConverter.convert(data.getJSONObject("data"));
                     FireBaseClient fireBaseClient = new FireBaseClient(storage);
-                    generateView(spot , fireBaseClient);
+                    generateView(spotDetails , fireBaseClient);
                 }catch (JsonProcessingException e) {
                     e.printStackTrace();
                     throw new RuntimeException(e);
@@ -128,5 +136,22 @@ public class Details_Spot_Fragment extends Fragment {
         webSettings.setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
 
+        blank_LikWebView(webView);
+    }
+
+    private void blank_LikWebView(WebView webView){
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url.startsWith("http://") || url.startsWith("https://")) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(intent);
+                    return true;
+                } else {
+                    view.loadUrl(url);
+                    return true;
+                }
+            }
+        });
     }
 }

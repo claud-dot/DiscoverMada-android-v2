@@ -24,6 +24,7 @@ import com.example.discovermada.model.TouristSpots;
 import com.example.discovermada.ui.MainActivity;
 import com.example.discovermada.ui.adapters.ListSpotAdapter;
 import com.example.discovermada.utils.FireBaseClient;
+import com.example.discovermada.utils.PreferenceUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.firebase.storage.FirebaseStorage;
@@ -51,6 +52,7 @@ public class Search_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        PreferenceUtils.applyAppTheme(requireContext());
         View rootView = inflater.inflate(R.layout.fragment_search_, container, false);
         super.onCreate(savedInstanceState);
         storage = FirebaseStorage.getInstance();
@@ -74,7 +76,7 @@ public class Search_Fragment extends Fragment {
             requestBody.put("searchKeyword", query);
             CallApiServiceImpl<List<TouristSpots>> callApiService = new CallApiServiceImpl<>(new JsonConverterImpl<>(new TypeReference<List<TouristSpots>>() {}));
             ApiService apiService = ApiClient.getApiService();
-            Call<ResponseBody> call = apiService.getSpotSearch(requestBody , "fr");
+            Call<ResponseBody> call = apiService.getSpotSearch(requestBody , PreferenceUtils.currentLang(requireContext()));
             callApiService.handle(call, new ApiResponseCallback() {
                 @Override
                 public void onSuccess(JSONObject data) throws JSONException, JsonProcessingException {

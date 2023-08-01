@@ -9,33 +9,44 @@ import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.preference.PreferenceManager;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.discovermada.R;
 import com.example.discovermada.ui.fragments.Details_Spot_Fragment;
 import com.example.discovermada.ui.fragments.List_Spot_Fragment;
 import com.example.discovermada.ui.fragments.Search_Fragment;
+import com.example.discovermada.utils.PreferenceUtils;
+import com.example.discovermada.utils.Utils;
+
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity{
 
     private Toolbar toolbar;
-    private Search_Fragment searchFragment; // Ajoutez cette variable
+    private Search_Fragment searchFragment;
     private Fragment currentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PreferenceUtils.applyAppTheme(this);
         setContentView(R.layout.activity_main);
+        updateAppLanguage();
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         replaceFragment(new List_Spot_Fragment());
     }
@@ -56,17 +67,15 @@ public class MainActivity extends AppCompatActivity{
                 } else {
                     searchFragment.searchResultSpot(query);
                 }
-                searchView.clearFocus();
-                Log.d("SEARCH === ", "onQueryTextSubmit: "+query);
-                return false;
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
+
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (newText.isEmpty()) {
-                    restorePreviousFragment();
-                    return true;
-                }
                 return false;
             }
         });
@@ -89,35 +98,51 @@ public class MainActivity extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    public  void replaceFragment(Fragment fragment) {
-        currentFragment = fragment;
+    @Override
+    public void onBackPressed() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 
-    public void restorePreviousFragment() {
-        if (currentFragment instanceof Search_Fragment) {
-            currentFragment = new List_Spot_Fragment();
-            searchFragment = null;
-            replaceFragment(new List_Spot_Fragment());
-        }
+    public void replaceFragment(Fragment fragment) {
+        currentFragment = fragment;
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Utils.replaceFragment(fragmentManager, R.id.container, fragment);
     }
 
     public void hideBackButton() {
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(false);
-        }
+        Utils.hideBackButton(actionBar);
     }
 
     public void showBackButton() {
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
+        Utils.showBackButton(actionBar);
+    }
+
+    private void updateAppLanguage() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String selectedLanguage = sharedPreferences.getString("lang_preference", "fr");
+
+        if (!getCurrentLanguage().equals(selectedLanguage)) {
+            Locale newLocale = new Locale(selectedLanguage);
+            Locale.setDefault(newLocale);
+            Configuration configuration = getResources().getConfiguration();
+            configuration.locale = newLocale;
+            getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
+
+            recreate();
         }
     }
+
+    private String getCurrentLanguage() {
+        // Récupérer la langue actuelle de la configuration de l'application
+        return getResources().getConfiguration().locale.getLanguage();
+    }
+
 
 }

@@ -1,15 +1,22 @@
 package com.example.discovermada.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.preference.PreferenceManager;
 
 import com.example.discovermada.R;
+import com.example.discovermada.ui.fragments.List_Spot_Fragment;
+import com.example.discovermada.ui.fragments.Search_Fragment;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -42,22 +49,32 @@ public class Utils {
         }
     }
 
-    public static List<ImageView> getAllImageViews(Context context,int numberOfImageViews) {
-        List<ImageView> imageViews = new ArrayList<>();
-
-        for (int i = 0; i < numberOfImageViews; i++) {
-            // Créez une nouvelle instance d'ImageView
-            ImageView imageView = new ImageView(context);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                imageView.setId(View.generateViewId());
-            }
-
-            imageViews.add(imageView);
-        }
-
-        return imageViews;
+    public static void replaceFragment(FragmentManager fragmentManager, int containerId, Fragment fragment) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(containerId, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
+
+    public static void restorePreviousFragment(FragmentManager fragmentManager, Fragment currentFragment) {
+        if (currentFragment instanceof Search_Fragment) {
+            Fragment newFragment = new List_Spot_Fragment();
+            replaceFragment(fragmentManager, R.id.container, newFragment);
+        }
+    }
+
+    public static void showBackButton(ActionBar actionBar) {
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    public static void hideBackButton(ActionBar actionBar) {
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
+    }
+
 
     public static void initImagesSpot(View view,List<ImageView> imageViews){
         imageViews.add((ImageView) view.findViewById(R.id.spotimage1));
