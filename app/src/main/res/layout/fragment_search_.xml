@@ -7,6 +7,14 @@
     tools:context=".ui.fragments.Search_Fragment"
     style="@style/SCREEN">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleViewResultSpot"
         android:layout_width="match_parent"

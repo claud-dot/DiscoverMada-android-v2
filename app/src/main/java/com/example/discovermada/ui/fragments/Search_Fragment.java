@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.discovermada.R;
 import com.example.discovermada.api.ApiClient;
@@ -40,6 +41,7 @@ import retrofit2.Call;
 public class Search_Fragment extends Fragment {
     private FirebaseStorage storage;
     private RecyclerView recyclerView;
+    private ProgressBar progressBar;
 
     public static Search_Fragment newInstance(String querySearch) {
         Search_Fragment fragment = new Search_Fragment();
@@ -55,6 +57,9 @@ public class Search_Fragment extends Fragment {
 //        PreferenceUtils.applyAppTheme(requireContext());
         View rootView = inflater.inflate(R.layout.fragment_search_, container, false);
         super.onCreate(savedInstanceState);
+        progressBar = rootView.findViewById(R.id.progressBar);
+
+        progressBar.setVisibility(View.VISIBLE);
         storage = FirebaseStorage.getInstance();
         recyclerView = rootView.findViewById(R.id.recycleViewResultSpot);
         recyclerView.setHasFixedSize(true);
@@ -66,7 +71,6 @@ public class Search_Fragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         String keyword = getArguments().getString("search_query");
-        Log.d("KEYWORD ", "onViewCreated: " + keyword);
         searchResultSpot(keyword);
     }
 
@@ -94,14 +98,17 @@ public class Search_Fragment extends Fragment {
                         }
                     });
                     recyclerView.setAdapter(adapterForList);
+                    progressBar.setVisibility(View.GONE);
                 }
                 @Override
                 public void onFailure(Throwable t) {
                     t.printStackTrace();
+                    progressBar.setVisibility(View.GONE);
                 }
             });
         }catch (Exception e){
             e.printStackTrace();
+            progressBar.setVisibility(View.GONE);
         }
 
     }

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.discovermada.R;
 import com.example.discovermada.api.ApiClient;
@@ -44,6 +45,7 @@ public class List_Spot_Fragment extends Fragment {
     private FirebaseStorage storage;
     private MainActivity mainActivity;
     private List<TouristSpots> touristSpotsList;
+    ProgressBar progressBar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +62,8 @@ public class List_Spot_Fragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         storage = FirebaseStorage.getInstance();
+        progressBar = rootView.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
         if (touristSpotsList == null) {
             getTouristSpotsAndDisplay(1);
         } else {
@@ -79,10 +83,12 @@ public class List_Spot_Fragment extends Fragment {
                 } catch (JsonProcessingException e) {
                     throw new RuntimeException(e);
                 }
+                progressBar.setVisibility(View.GONE);
             }
             @Override
             public void onFailure(Throwable t) {
                 t.printStackTrace();
+                progressBar.setVisibility(View.GONE);
             }
         });
     }
@@ -106,6 +112,7 @@ public class List_Spot_Fragment extends Fragment {
             }
         });
         recyclerView.setAdapter(adapterForList);
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override

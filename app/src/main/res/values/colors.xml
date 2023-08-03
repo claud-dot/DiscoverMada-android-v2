@@ -7,4 +7,10 @@
     <color name="background_item_color">#F8545757</color>
     <color name="all_background_color">#FFFFFF</color>
     <color name="icon_color">#FFFFFF</color>
+
+    <!-- Couleur de texte pour le mode clair -->
+    <color name="text_color_light">#000000</color>
+
+    <!-- Couleur de texte pour le mode sombre -->
+    <color name="text_color_dark">#FFFFFF</color>
 </resources>
