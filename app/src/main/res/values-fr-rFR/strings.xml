@@ -15,12 +15,15 @@
     <string name="restor_sumary" translatable="true">Restaurer les paramètres par défaut</string>
 
     <!--    message Box-->
-    <string name="restor_title_show" translatable="false">Restaurer par defaut</string>
-    <string name="restor_message_show" translatable="false">Voulez-vous restaurer les paramètres par défaut?</string>
-    <string name="restor_accept_show" translatable="false">Oui</string>
-    <string name="restor_refuse_show" translatable="false">Non</string>
+    <string name="restor_title_show" translatable="true">Restaurer par defaut</string>
+    <string name="restor_message_show" translatable="true">Voulez-vous restaurer les paramètres par défaut?</string>
+    <string name="restor_accept_show" translatable="true">Oui</string>
+    <string name="restor_refuse_show" translatable="true">Non</string>
 
-
+<!--    notification message-->
+    <string name="welcome_notif_message" translatable="true">Bienvenue dans notre application ! Explorez les sites touristiques de Madagascar avec notre application. Découvrez des contenus uniques, des images magnifiques et des vidéos passionnantes</string>
+    <string name="inactif_notif_message" translatable="true">Vous nous avez manqué ! Revenez explorer Madagascar avec notre application et découvrez de nouvelles aventures.</string>
+    <string name="encorage_notif_message" translatable="true">Planifiez votre prochain voyage avec nous! Trouvez des endroits magiques à explorer à Madagascar en utilisant notre application conviviale.</string>
 
     <!--    app text-->
     <string name="title_list_spot" translatable="true">Les meilleures attractions touristiques de Madagascar</string>

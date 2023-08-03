@@ -18,6 +18,11 @@
     <string name="restor_accept_show" translatable="false">Yes</string>
     <string name="restor_refuse_show" translatable="false">No</string>
 
+<!--    Welcome message-->
+    <string name="welcome_notif_message" translatable="false">Welcome to our app! Explore the sights of Madagascar with our application. Discover unique content, beautiful images and exciting videos. Need help ? Contact us anytime. Enjoy your trip! The DiscoverMada team</string>
+    <string name="inactif_notif_message" translatable="false">We missed you ! Come back to explore Madagascar with our application and discover new adventures.</string>
+    <string name="encorage_notif_message" translatable="false">Plan your next trip with us! Find magical places to explore in Madagascar using our user-friendly app.</string>
+
     <!--    app text-->
     <string name="title_list_spot" translatable="false">The best tourist attractions of Madagascar</string>
     <string name="sub_title_list_spot" translatable="false">Guides of the best tourist attractions to discover during your trip to Madagascar</string>
