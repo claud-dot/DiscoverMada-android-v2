@@ -39,7 +39,7 @@
 
     <style name="Widget.App.Toolbar" parent="@style/Widget.Material3.Toolbar" >
         <item name="android:background">@color/background_item_color</item>
-        <item name="fontFamily">@font/popin_bold</item>
+        <item name="fontFamily">@font/popin_regular</item>
         <item name="android:layout_gravity">center</item> <!-- Center the Toolbar itself -->
         <item name="android:gravity">center</item> <!-- Center the content of the Toolbar -->
         <item name="android:textColor">@color/text_item_color_primary</item>
