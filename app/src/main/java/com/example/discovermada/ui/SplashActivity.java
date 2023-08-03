@@ -15,8 +15,8 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
         setContentView(R.layout.activity_splash);
-
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

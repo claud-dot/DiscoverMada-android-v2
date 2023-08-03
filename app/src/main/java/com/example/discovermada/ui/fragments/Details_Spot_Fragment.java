@@ -2,6 +2,7 @@ package com.example.discovermada.ui.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -67,7 +68,7 @@ public class Details_Spot_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        PreferenceUtils.applyAppTheme(requireContext());
+//        PreferenceUtils.applyAppTheme(requireContext());
         String idSpot = getArguments().getString("spot_id");
         View rootView = inflater.inflate(R.layout.fragment_details__spot_, container, false);
         super.onCreate(savedInstanceState);
@@ -126,11 +127,14 @@ public class Details_Spot_Fragment extends Fragment {
     }
 
     private void generateView(TouristSpots spots , FireBaseClient fireBaseClient){
-        fireBaseClient.setMediaViews(Arrays.asList(spots.getImages()) , listSpotImg);
+        List<String> urls = new ArrayList<>(Arrays.asList(spots.getImages()));
+        urls.add(1,spots.getImages()[0]);
+        fireBaseClient.setMediaViews( urls, listSpotImg);
         Utils utils = new Utils(requireContext());
         String templateHtml = utils.loadHtmlFromAssets("template.html");
         String fullHtmlContent = templateHtml.replace("<div id=\"pageContent\"></div>", spots.getHtmlContent());
         fullHtmlContent = fullHtmlContent.replace("ID_VIDEO" , spots.getVideos()[0]);
+        webView.setBackgroundColor(Color.BLACK);
         webView.loadDataWithBaseURL(null,fullHtmlContent, "text/html", "UTF-8", null);
         WebSettings webSettings =  webView.getSettings();
         webSettings.setJavaScriptEnabled(true);

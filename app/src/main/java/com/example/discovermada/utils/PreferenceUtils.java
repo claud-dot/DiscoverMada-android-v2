@@ -10,6 +10,7 @@ import android.os.Build;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 
@@ -61,11 +62,10 @@ public class PreferenceUtils {
 
     public static void applyAppTheme(Context context) {
         boolean darkModeEnabled = isDarkMode(context);
-        Log.d("MOD ===> ", "applyAppTheme: "+darkModeEnabled);
         if (darkModeEnabled) {
-            context.getTheme().applyStyle(R.style.Dark_Theme_DiscoverMada, true);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
-            context.getTheme().applyStyle(R.style.Light_Theme_DiscoverMada, true);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
 

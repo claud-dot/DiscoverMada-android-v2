@@ -1,12 +1,15 @@
 package com.example.discovermada.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
@@ -75,10 +78,22 @@ public class Utils {
         }
     }
 
+    public static void setMaxLinesForDescription(TextView textView) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) textView.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int screenHeight = displayMetrics.heightPixels;
+
+        if (screenHeight <= 720) {
+            textView.setMaxLines(3);
+        } else {
+            textView.setMaxLines(5);
+        }
+    }
 
     public static void initImagesSpot(View view,List<ImageView> imageViews){
         imageViews.add((ImageView) view.findViewById(R.id.spotimage1));
         imageViews.add((ImageView) view.findViewById(R.id.spotimage2));
         imageViews.add((ImageView) view.findViewById(R.id.spotimage3));
+        imageViews.add((ImageView) view.findViewById(R.id.spotimage4));
     }
 }

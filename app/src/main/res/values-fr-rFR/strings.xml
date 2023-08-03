@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">DiscoverMada</string>
+    <string name="title_icon_search" translatable="true">Recherche</string>
+    <string name="log_out" translatable="false">Se déconnecter</string>
+
 
     <!--    preference user-->
     <string name="preference" translatable="true">Préfénces</string>

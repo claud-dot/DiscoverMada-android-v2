@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.discovermada.R;
 import com.example.discovermada.model.TouristSpots;
 import com.example.discovermada.utils.FireBaseClient;
+import com.example.discovermada.utils.Utils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,12 +43,14 @@ public class ListSpotAdapter extends RecyclerView.Adapter<ListSpotAdapter.ViewHo
         final TouristSpots spot =  spotsList.get(position);
         holder.textViewTitle.setText(spot.getName());
         holder.textViewDescription.setText(spot.getDescription());
+
+//        Utils.setMaxLinesForDescription(holder.textViewDescription);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (onItemListener != null) {
                     onItemListener.onItemClick(spot);
-                    Toast.makeText(view.getContext(),"click on item: "+spot.getDescription(),Toast.LENGTH_LONG).show();
+//                    Toast.makeText(view.getContext(),"click on item: "+spot.getDescription(),Toast.LENGTH_LONG).show();
                 }
             }
         });

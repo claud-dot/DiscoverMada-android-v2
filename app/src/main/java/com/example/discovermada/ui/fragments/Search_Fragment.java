@@ -52,7 +52,7 @@ public class Search_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        PreferenceUtils.applyAppTheme(requireContext());
+//        PreferenceUtils.applyAppTheme(requireContext());
         View rootView = inflater.inflate(R.layout.fragment_search_, container, false);
         super.onCreate(savedInstanceState);
         storage = FirebaseStorage.getInstance();

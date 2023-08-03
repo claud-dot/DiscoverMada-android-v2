@@ -50,6 +50,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("selected_language", darkModeEnabled);
             editor.apply();
+
             if (darkModeEnabled != currentDarkMode) {
                 currentDarkMode = darkModeEnabled;
                 PreferenceUtils.applyAppTheme(requireContext());

@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         PreferenceUtils.applyAppTheme(this);
         setContentView(R.layout.activity_main);
-        updateAppLanguage();
+        PreferenceUtils.updateAppLanguage(this);
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -122,26 +122,6 @@ public class MainActivity extends AppCompatActivity{
     public void showBackButton() {
         ActionBar actionBar = getSupportActionBar();
         Utils.showBackButton(actionBar);
-    }
-
-    private void updateAppLanguage() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String selectedLanguage = sharedPreferences.getString("lang_preference", "fr");
-
-        if (!getCurrentLanguage().equals(selectedLanguage)) {
-            Locale newLocale = new Locale(selectedLanguage);
-            Locale.setDefault(newLocale);
-            Configuration configuration = getResources().getConfiguration();
-            configuration.locale = newLocale;
-            getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
-
-            recreate();
-        }
-    }
-
-    private String getCurrentLanguage() {
-        // Récupérer la langue actuelle de la configuration de l'application
-        return getResources().getConfiguration().locale.getLanguage();
     }
 
 

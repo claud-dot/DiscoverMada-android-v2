@@ -38,13 +38,12 @@ public class FireBaseClient {
                 @Override
                 public void onSuccess(Uri uri) {
                     String imageURL = uri.toString();
-                    Log.d("FIRE BASE ====>", "onSuccess: " + uri);
                     Picasso.get().load(imageURL).into(view);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Log.d("FIRE BASE ====>", "onFailure: " + e.getMessage());
+                    Log.d("FIRE BASE FAIL ====>", "onFailure: " + e.getMessage());
                 }
             });
         }

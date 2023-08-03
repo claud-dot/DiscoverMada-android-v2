@@ -24,7 +24,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PreferenceUtils.applyAppTheme(this);
+//        PreferenceUtils.applyAppTheme(this);
         PreferenceUtils.updateAppLanguage(this);
         setContentView(R.layout.settings_activity);
 

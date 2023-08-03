@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">DiscoverMada</string>
     <string name="title_activity_settings" translatable="false">Settings</string>
+    <string name="title_icon_search" translatable="false">Search</string>
+    <string name="log_out" translatable="false">Logout</string>
 
     <!--    preference user-->
     <string name="preference" translatable="false">Prefences</string>
@@ -19,6 +21,9 @@
     <!--    app text-->
     <string name="title_list_spot" translatable="false">The best tourist attractions of Madagascar</string>
     <string name="sub_title_list_spot" translatable="false">Guides of the best tourist attractions to discover during your trip to Madagascar</string>
+    <string name="titre_du_lieu_touristique">Titre du lieu touristique</string>
+    <string name="notifications">Notifications</string>
+    <string name="description_du_lieu_touristique">Description du lieu touristique</string>
 
     <string-array name="langues" translatable="false">
         <item>French</item>
