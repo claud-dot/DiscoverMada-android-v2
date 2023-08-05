@@ -1,26 +1,42 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <PreferenceCategory app:title="@string/preference">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="notification_category"
+        android:title="@string/notification_settings"
+        android:iconSpaceReserved="false">
 
         <SwitchPreference
             app:defaultValue="true"
-            app:key="notif_preference"
-            app:title="@string/notifcation" />
+            android:key="notif_preference"
+            android:title="@string/notification"
+            android:summaryOn="@string/notification_enabled_summary"
+            android:summaryOff="@string/notification_disabled_summary" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="appearance_category"
+        android:title="@string/appearance_settings"
+        android:iconSpaceReserved="false">
 
         <SwitchPreference
-            app:defaultValue="false"
-            app:key="mod_preference"
-            app:title="@string/drak_mode"/>
+            android:key="mod_preference"
+            android:title="@string/dark_mode"
+            android:summaryOn="@string/dark_mode_enabled_summary"
+            android:summaryOff="@string/dark_mode_disabled_summary" />
 
         <ListPreference
+            android:key="lang_preference"
             app:defaultValue="fr"
+            android:title="@string/default_language"
+            android:summary="%s"
+            android:dialogTitle="@string/select_language"
             app:entries="@array/langues"
             app:entryValues="@array/lang_values"
-            app:key="lang_preference"
-            app:title="@string/default_laguage"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
+
     <Preference
         app:key="restore_default_preference"
         app:title="@string/default_restor"

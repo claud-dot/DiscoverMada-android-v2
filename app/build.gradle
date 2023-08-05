@@ -13,6 +13,7 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -29,6 +30,10 @@ android {
     }
     buildFeatures {
         viewBinding true
+    }
+
+    packagingOptions {
+        exclude 'androidsupportmultidexversion.txt'
     }
 }
 
@@ -52,4 +57,5 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.5'
     implementation 'com.squareup.okhttp3:okhttp:4.9.1'
+    implementation 'com.android.support:multidex:1.0.3'
 }

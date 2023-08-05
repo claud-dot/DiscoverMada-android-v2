@@ -17,9 +17,9 @@ public class ApiClient {
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                    .connectTimeout(30, TimeUnit.SECONDS) // Temps d'attente pour établir la connexion
-                    .readTimeout(30, TimeUnit.SECONDS)    // Temps d'attente pour la réponse du serveur après avoir établi la connexion
-                    .writeTimeout(30, TimeUnit.SECONDS)   // Temps d'attente pour l'écriture des données à envoyer au serveur
+                    .connectTimeout(60, TimeUnit.SECONDS) // Temps d'attente pour établir la connexion
+                    .readTimeout(120, TimeUnit.SECONDS)    // Temps d'attente pour la réponse du serveur après avoir établi la connexion
+                    .writeTimeout(60, TimeUnit.SECONDS)   // Temps d'attente pour l'écriture des données à envoyer au serveur
                     .build();
 
             Gson gson = new GsonBuilder()

@@ -9,51 +9,33 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.discovermada.R;
+import com.example.discovermada.utils.PreferenceUtils;
+import com.example.discovermada.utils.Utils;
 
 public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PreferenceUtils.updateAppLanguageAndTheme(this);
         java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
         setContentView(R.layout.activity_splash);
         Handler handler = new Handler();
+
+        SharedPreferences preferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("isUserLoggedIn", true);
+        editor.apply();
+
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                isFirstTime();
+                Intent intent =new Intent(SplashActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
             }
         },2000);
 
-//        Thread thread = new Thread(){
-//            @Override
-//            public void run() {
-//                super.run();
-//                try {
-//                    sleep(3000);
-//                }catch (Exception e){
-//                    e.printStackTrace();
-//                }finally {
-//                    Intent intent =  new Intent(SplashActivity.this , MainActivity.class);
-//                    startActivity(intent);
-//                }
-//            }
-//        };
-//        thread.start();
-    }
-
-    private void isFirstTime(){
-        SharedPreferences preferences = getApplication().getSharedPreferences("onSplash" , Context.MODE_PRIVATE);
-        boolean isFirst = preferences.getBoolean("isFirstTime" , true);
-        if(isFirst){
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("isFirstTime" , false);
-            editor.apply();
-            startActivity(new Intent(SplashActivity.this, MainActivity.class));
-            finish();
-        }else{
-            startActivity(new Intent(SplashActivity.this, MainActivity.class));
-            finish();
-        }
     }
 }

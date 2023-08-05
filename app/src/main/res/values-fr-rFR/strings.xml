@@ -1,34 +1,46 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Common Strings -->
     <string name="app_name">DiscoverMada</string>
-    <string name="title_icon_search" translatable="true">Recherche</string>
-    <string name="log_out" translatable="false">Se déconnecter</string>
+    <string name="title_activity_settings">Paramètres</string>
+    <string name="title_icon_search">Recherche</string>
+    <string name="log_out">Se déconnecter</string>
+    <string name="title_details">Détails</string>
 
+    <!-- Preference User -->
+    <string name="preference">Préférences</string>
+    <string name="drak_mode">Mode sombre</string>
+    <string name="default_laguage">Langue par défaut</string>
+    <string name="default_restor">Restaurer par défaut</string>
+    <string name="restor_sumary">Restaurer les paramètres par défaut</string>
 
-    <!--    preference user-->
-    <string name="preference" translatable="true">Préfénces</string>
-    <string name="notifcation" translatable="true">Recevoir de notification</string>
-    <string name="drak_mode" translatable="true">Mode sombre</string>
-    <string name="default_laguage" translatable="true">Langue par defaut</string>
-    <string name="title_activity_settings" translatable="true">Paramètres</string>
-    <string name="default_restor" translatable="true">Restaurer par defaut</string>
-    <string name="restor_sumary" translatable="true">Restaurer les paramètres par défaut</string>
+    <string name="notification_settings">Paramètres de notifications</string>
+    <string name="notification">Notification de bienvenue</string>
+    <string name="notification_enabled_summary">Les notifications de bienvenue sont activées.</string>
+    <string name="notification_disabled_summary">Les notifications de bienvenue sont désactivées.</string>
 
-    <!--    message Box-->
-    <string name="restor_title_show" translatable="true">Restaurer par defaut</string>
-    <string name="restor_message_show" translatable="true">Voulez-vous restaurer les paramètres par défaut?</string>
-    <string name="restor_accept_show" translatable="true">Oui</string>
-    <string name="restor_refuse_show" translatable="true">Non</string>
+    <string name="appearance_settings">Paramètres d\'apparence</string>
+    <string name="dark_mode">Mode sombre</string>
+    <string name="dark_mode_enabled_summary">Le mode sombre est activé.</string>
+    <string name="dark_mode_disabled_summary">Le mode sombre est désactivé.</string>
 
-<!--    notification message-->
-    <string name="welcome_notif_message" translatable="true">Bienvenue dans notre application ! Explorez les sites touristiques de Madagascar avec notre application. Découvrez des contenus uniques, des images magnifiques et des vidéos passionnantes</string>
-    <string name="inactif_notif_message" translatable="true">Vous nous avez manqué ! Revenez explorer Madagascar avec notre application et découvrez de nouvelles aventures.</string>
-    <string name="encorage_notif_message" translatable="true">Planifiez votre prochain voyage avec nous! Trouvez des endroits magiques à explorer à Madagascar en utilisant notre application conviviale.</string>
+    <string name="default_language">Langue par défaut</string>
+    <string name="select_language">Sélectionner la langue</string>
 
-    <!--    app text-->
-    <string name="title_list_spot" translatable="true">Les meilleures attractions touristiques de Madagascar</string>
-    <string name="sub_title_list_spot" translatable="true">Guide des meilleures attractions touristiques à découvrir lors de votre voyage à Madagascar</string>
-    <string-array name="langues" translatable="true">
+    <!-- Message Box -->
+    <string name="restor_title_show">Restaurer par défaut</string>
+    <string name="exit_app_message">Voulez-vous vraiment quitter l\'application?</string>
+    <string name="restor_message_show">Voulez-vous restaurer les paramètres par défaut?</string>
+    <string name="restor_accept_show">Oui</string>
+    <string name="restor_refuse_show">Non</string>
+
+    <!-- Welcome message -->
+    <string name="welcome_notif_message">Bienvenue dans notre application ! Explorez les sites touristiques de Madagascar avec notre application. Découvrez des contenus uniques, des images magnifiques et des vidéos passionnantes. Besoin d\'aide ? Contactez-nous à tout moment. Profitez de votre voyage ! L\'équipe de DiscoverMada</string>
+
+    <!-- App Text -->
+    <string name="title_list_spot">Les meilleures attractions touristiques de Madagascar</string>
+    <string name="sub_title_list_spot">Guide des meilleures attractions touristiques à découvrir lors de votre voyage à Madagascar</string>
+
+    <string-array name="langues">
         <item>Français</item>
         <item>Anglais</item>
     </string-array>

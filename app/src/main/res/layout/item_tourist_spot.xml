@@ -8,29 +8,30 @@
     android:padding="10dp"
     style="@style/shape_style">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageView"
-        android:layout_width="100dp"
-        app:strokeColor="@null"
-        android:layout_height="100dp"
-        android:scaleType="centerCrop"
-        app:shapeAppearanceOverlay="@style/image_item_corner"
-        android:src="@drawable/image_load" />
+<!--    <com.google.android.material.card.MaterialCardView android:layout_height="match_parent" android:layout_width="wrap_content">-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageView"
+            android:layout_width="100dp"
+            app:strokeColor="@null"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/image_item_corner"
+            android:src="@drawable/image_load" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp">
 
         <TextView
             android:id="@+id/textViewTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            style="@style/title_list"
-            android:text="@string/titre_du_lieu_touristique" />
+            style="@style/title_list" />
 
         <TextView
             android:id="@+id/textViewDescription"
@@ -39,7 +40,7 @@
             android:textSize="12sp"
             android:maxLines="3"
             android:ellipsize="end"
-            style="@style/sub_title_list"
-            android:text="@string/description_du_lieu_touristique" />
+            style="@style/sub_title_list" />
     </LinearLayout>
+<!--    </com.google.android.material.card.MaterialCardView>-->
 </LinearLayout>

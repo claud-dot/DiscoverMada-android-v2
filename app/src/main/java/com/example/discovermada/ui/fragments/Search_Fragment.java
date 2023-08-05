@@ -26,6 +26,7 @@ import com.example.discovermada.ui.MainActivity;
 import com.example.discovermada.ui.adapters.ListSpotAdapter;
 import com.example.discovermada.utils.FireBaseClient;
 import com.example.discovermada.utils.PreferenceUtils;
+import com.example.discovermada.utils.Utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.firebase.storage.FirebaseStorage;
@@ -54,7 +55,6 @@ public class Search_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        PreferenceUtils.applyAppTheme(requireContext());
         View rootView = inflater.inflate(R.layout.fragment_search_, container, false);
         super.onCreate(savedInstanceState);
         progressBar = rootView.findViewById(R.id.progressBar);

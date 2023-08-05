@@ -2,11 +2,13 @@ package com.example.discovermada.utils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
+import android.os.Handler;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,9 +22,9 @@ import java.util.Locale;
 
 public class PreferenceUtils {
 
-    public static boolean isDarkMode(Context context) {
+    public static boolean isNotified(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getBoolean("mod_preference", false);
+        return sharedPreferences.getBoolean("notif_preference", true);
     }
 
     public static String currentLang(Context context) {
@@ -30,14 +32,25 @@ public class PreferenceUtils {
         return sharedPreferences.getString("lang_preference", "fr");
     }
 
-    public static boolean isNotified(Context context) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getBoolean("notif_preference", false);
+    public static void notifWelcome(Context context , NotificationManager manager){
+        NotificationUtils utils = new NotificationUtils();
+        SharedPreferences preferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        boolean isUserLoggedIn = preferences.getBoolean("isUserLoggedIn", false);
+
+        if (isUserLoggedIn && isNotified(context)) {
+            utils.createNotificationChannel(manager , context);
+            utils.showNotification(context);
+
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("isUserLoggedIn", false);
+            editor.apply();
+        }
     }
 
-    public static void updateAppLanguage(Context context) {
+    public static void updateAppLanguageAndTheme(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String selectedLanguage = sharedPreferences.getString("lang_preference", "fr");
+        boolean darkModeEnabled = sharedPreferences.getBoolean("mod_preference", false);
 
         if (!getCurrentLanguage(context).equals(selectedLanguage)) {
             Locale newLocale = new Locale(selectedLanguage);
@@ -54,36 +67,32 @@ public class PreferenceUtils {
                 }
             }
         }
+        applyAppTheme(context, darkModeEnabled);
+    }
+
+    public static void  updateNotifPreference(SharedPreferences sharedPreferences , Context context){
+        boolean notificationsEnabled = sharedPreferences.getBoolean("notif_preference", true);
+
+        SharedPreferences userPrefs = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = userPrefs.edit();
+        editor.putBoolean("areNotificationsEnabled", notificationsEnabled);
+        editor.apply();
     }
 
     private static String getCurrentLanguage(Context context) {
         return context.getResources().getConfiguration().locale.getLanguage();
     }
 
-    public static void applyAppTheme(Context context) {
-        boolean darkModeEnabled = isDarkMode(context);
-        if (darkModeEnabled) {
+    public static void applyAppTheme(Context context , boolean isDarkMode) {
+        if (isDarkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
 
-    public static void showRestoreDefaultConfirmationDialog(Context context , String title , String message , String acceptTitle , String cancelTitle) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.setPositiveButton(acceptTitle, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                restoreDefaultPreferences(context);
-            }
-        });
-        builder.setNegativeButton(cancelTitle, null);
-        builder.show();
-    }
 
-    private static void restoreDefaultPreferences(Context context) {
+    public static void restoreDefaultPreferences(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Log.d("RESTOR +++", "restoreDefaultPreferences: ");
@@ -91,8 +100,7 @@ public class PreferenceUtils {
         editor.putBoolean("mod_preference", false);
         editor.putString("lang_preference" , "fr");
         editor.apply();
-        updateAppLanguage(context);
-        applyAppTheme(context);
+        updateAppLanguageAndTheme(context);
     }
 
 }

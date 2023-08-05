@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Handler;
 import android.util.Log;
@@ -32,6 +34,7 @@ import com.example.discovermada.api.CallApiServiceImpl;
 import com.example.discovermada.api.JsonConverter;
 import com.example.discovermada.api.JsonConverterImpl;
 import com.example.discovermada.model.TouristSpots;
+import com.example.discovermada.ui.MainActivity;
 import com.example.discovermada.utils.FireBaseClient;
 import com.example.discovermada.utils.PreferenceUtils;
 import com.example.discovermada.utils.Utils;
@@ -184,6 +187,8 @@ public class Details_Spot_Fragment extends Fragment {
             public void run() {
                 photosTxt.setVisibility(View.VISIBLE);
             }
-        }, 500); // Délai de 5 ms
+        }, 1000);
     }
+
+
 }

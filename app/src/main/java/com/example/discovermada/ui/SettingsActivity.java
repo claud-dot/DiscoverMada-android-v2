@@ -24,8 +24,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        PreferenceUtils.applyAppTheme(this);
-        PreferenceUtils.updateAppLanguage(this);
+        PreferenceUtils.updateAppLanguageAndTheme(this);
         setContentView(R.layout.settings_activity);
 
         toolbar = findViewById(R.id.toolBar);

@@ -27,6 +27,7 @@ import com.example.discovermada.ui.MainActivity;
 import com.example.discovermada.ui.adapters.ListSpotAdapter;
 import com.example.discovermada.utils.FireBaseClient;
 import com.example.discovermada.utils.PreferenceUtils;
+import com.example.discovermada.utils.Utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.firebase.storage.FirebaseStorage;
@@ -57,6 +58,7 @@ public class List_Spot_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_list__spot_, container, false);
         super.onCreate(savedInstanceState);
+        mainActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         recyclerView = rootView.findViewById(R.id.recycleViewListSpot);
         recyclerView.setHasFixedSize(true);
@@ -64,6 +66,7 @@ public class List_Spot_Fragment extends Fragment {
         storage = FirebaseStorage.getInstance();
         progressBar = rootView.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
+
         if (touristSpotsList == null) {
             getTouristSpotsAndDisplay(1);
         } else {
@@ -115,15 +118,10 @@ public class List_Spot_Fragment extends Fragment {
         progressBar.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mainActivity.hideBackButton();
+    public boolean isListFragmentVisible() {
+        return isAdded() && isVisible();
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        mainActivity.showBackButton();
-    }
+
+
 }

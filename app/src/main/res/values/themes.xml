@@ -54,8 +54,8 @@
         <item name="color">@color/text_item_color_primary</item>
     </style>
 
-    <style name="Widget.App.Toolbar" parent="@style/Widget.Material3.Toolbar" >
-        <item name="android:background">@color/background_item_color</item>
+    <style name="Tool_bar_style" parent="@style/Widget.Material3.Toolbar" >
+        <item name="android:background">@drawable/radian_rectangle</item>
         <item name="fontFamily">@font/popin_regular</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>

@@ -13,6 +13,7 @@ import androidx.preference.SwitchPreference;
 
 import com.example.discovermada.R;
 import com.example.discovermada.utils.PreferenceUtils;
+import com.example.discovermada.utils.Utils;
 
 public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
 
@@ -30,7 +31,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     private void initPreference(){
         darkModePreference = findPreference("mod_preference");
         languagePreference = findPreference("lang_preference");
-        notifPreference = findPreference("notif_preference");
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         currentDarkMode = sharedPreferences.getBoolean("mod_preference", false);
 
@@ -40,33 +40,14 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         onSharedPreferenceChanged(getPreferenceScreen().getSharedPreferences(), "mod_preference");
         onSharedPreferenceChanged(getPreferenceScreen().getSharedPreferences(), "lang_preference");
-        onSharedPreferenceChanged(getPreferenceScreen().getSharedPreferences(), "notif_preference");
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals("mod_preference")) {
-            boolean darkModeEnabled = sharedPreferences.getBoolean("mod_preference", false);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("selected_language", darkModeEnabled);
-            editor.apply();
-
-            if (darkModeEnabled != currentDarkMode) {
-                currentDarkMode = darkModeEnabled;
-                PreferenceUtils.applyAppTheme(requireContext());
-                getActivity().recreate();
-            }
-        } else if (key.equals("lang_preference")) {
-            String selectedLanguage = sharedPreferences.getString("lang_preference", "fr");
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("selected_language", selectedLanguage);
-            editor.apply();
-            PreferenceUtils.updateAppLanguage(requireContext());
+        if (key.equals("mod_preference") || key.equals("lang_preference")) {
+            PreferenceUtils.updateAppLanguageAndTheme(requireContext());
         } else if (key.equals("notif_preference")) {
-            boolean notificationsEnabled = sharedPreferences.getBoolean("notif_preference", false);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("selected_language", notificationsEnabled);
-            editor.apply();
+            PreferenceUtils.updateNotifPreference(sharedPreferences , requireContext());
         }
     }
 
@@ -75,11 +56,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         restoreDefaultPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                 String title = requireContext().getString(R.string.restor_title_show);
-                 String message = requireContext().getString(R.string.restor_message_show);
-                 String accept = requireContext().getString(R.string.restor_accept_show);
-                 String refuse = requireContext().getString(R.string.restor_refuse_show);
-                 PreferenceUtils.showRestoreDefaultConfirmationDialog(requireContext(),title , message , accept , refuse);
+                 Utils.showRestoreDefaultConfirmationDialog(requireContext());
                 return true;
             }
         });
