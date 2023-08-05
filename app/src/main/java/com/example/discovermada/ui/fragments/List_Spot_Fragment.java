@@ -1,5 +1,6 @@
 package com.example.discovermada.ui.fragments;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -23,6 +24,7 @@ import com.example.discovermada.api.CallApiServiceImpl;
 import com.example.discovermada.api.JsonConverter;
 import com.example.discovermada.api.JsonConverterImpl;
 import com.example.discovermada.model.TouristSpots;
+import com.example.discovermada.model.UserPreference;
 import com.example.discovermada.ui.MainActivity;
 import com.example.discovermada.ui.adapters.ListSpotAdapter;
 import com.example.discovermada.utils.FireBaseClient;
@@ -117,11 +119,5 @@ public class List_Spot_Fragment extends Fragment {
         recyclerView.setAdapter(adapterForList);
         progressBar.setVisibility(View.GONE);
     }
-
-    public boolean isListFragmentVisible() {
-        return isAdded() && isVisible();
-    }
-
-
 
 }

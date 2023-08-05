@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.DisplayMetrics;
@@ -89,8 +90,7 @@ public class Utils {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setMessage(activity.getString(R.string.exit_app_message));
         builder.setPositiveButton(activity.getString(R.string.restor_accept_show), (dialog, which) -> {
-           activity.moveTaskToBack(true);
-           activity.finish();
+            activity.finishAffinity();
         });
         builder.setNegativeButton(activity.getString(R.string.restor_refuse_show), (dialog, which) -> {
         });

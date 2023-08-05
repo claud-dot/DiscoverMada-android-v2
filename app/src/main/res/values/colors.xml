@@ -2,15 +2,10 @@
 <resources>
     <color name="text_color_primary">#0A0A0A</color>
     <color name="text_color_secondary">#999999</color>
-    <color name="text_item_color_primary">#FFFFFF</color>
-    <color name="text_item_color_secondary">#FFFFFF</color>
-    <color name="background_item_color">#d7d7d7</color>
+    <color name="text_item_color_primary">#1C1D1C</color>
+    <color name="text_item_color_secondary">#4D4D4D</color>
+    <color name="background_item_color">#E6E6E6</color>
     <color name="all_background_color">#FFFFFF</color>
-    <color name="icon_color">#FFFFFF</color>
+    <color name="icon_color">#1F1D1D</color>
 
-    <!-- Couleur de texte pour le mode clair -->
-    <color name="text_color_light">#000000</color>
-
-    <!-- Couleur de texte pour le mode sombre -->
-    <color name="text_color_dark">#FFFFFF</color>
 </resources>

@@ -6,6 +6,6 @@
     android:id="@+id/toolBar"
     app:title="@string/app_name"
     app:menu="@menu/menu_main"
-   style="@style/Tool_bar_style">
+   android:theme="@style/Tool_bar_style">
 
 </androidx.appcompat.widget.Toolbar>

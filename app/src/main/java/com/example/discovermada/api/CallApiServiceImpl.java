@@ -34,8 +34,6 @@ public class CallApiServiceImpl<T> implements CallApiService<T>{
                 if (response.isSuccessful()) {
                     try {
                         JSONObject jsonObject = new JSONObject(response.body().string());
-                        Log.d("test ==== ", jsonObject.toString());
-//                        T data = jsonConverter.convert(jsonObject);
                         callback.onSuccess(jsonObject);
                     } catch (JSONException | IOException e) {
                         callback.onFailure(e);

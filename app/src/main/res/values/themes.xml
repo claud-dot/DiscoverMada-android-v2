@@ -55,11 +55,10 @@
     </style>
 
     <style name="Tool_bar_style" parent="@style/Widget.Material3.Toolbar" >
-        <item name="android:background">@drawable/radian_rectangle</item>
+        <item name="android:background">@color/background_item_color</item>
         <item name="fontFamily">@font/popin_regular</item>
-        <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
-        <item name="titleTextColor">@color/text_item_color_primary</item>
+        <item name="titleTextColor">@color/icon_color</item>
         <item name="android:tint">@color/text_item_color_primary</item>
         <item name="android:textColor">@color/text_item_color_primary</item>
         <item name="searchViewStyle">@color/text_item_color_primary</item>

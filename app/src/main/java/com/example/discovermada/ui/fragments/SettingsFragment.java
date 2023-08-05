@@ -12,8 +12,23 @@ import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
 
 import com.example.discovermada.R;
+import com.example.discovermada.api.ApiClient;
+import com.example.discovermada.api.ApiResponseCallback;
+import com.example.discovermada.api.ApiService;
+import com.example.discovermada.api.CallApiServiceImpl;
+import com.example.discovermada.api.JsonConverterImpl;
+import com.example.discovermada.model.TouristSpots;
+import com.example.discovermada.model.UserPreference;
 import com.example.discovermada.utils.PreferenceUtils;
 import com.example.discovermada.utils.Utils;
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import org.json.JSONObject;
+
+import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 
 public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
 
@@ -37,17 +52,17 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         onListenClickRestorPreference();
 
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-
-        onSharedPreferenceChanged(getPreferenceScreen().getSharedPreferences(), "mod_preference");
-        onSharedPreferenceChanged(getPreferenceScreen().getSharedPreferences(), "lang_preference");
+//        PreferenceUtils.getAppSetting(requireContext());
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals("mod_preference") || key.equals("lang_preference")) {
             PreferenceUtils.updateAppLanguageAndTheme(requireContext());
+//            PreferenceUtils.setAppPreference(requireContext(),key);
         } else if (key.equals("notif_preference")) {
             PreferenceUtils.updateNotifPreference(sharedPreferences , requireContext());
+//            PreferenceUtils.setAppPreference(requireContext(),key);
         }
     }
 
