@@ -36,6 +36,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
+
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.discovermada.R;
 import com.example.discovermada.ui.fragments.Details_Spot_Fragment;
 import com.example.discovermada.ui.fragments.List_Spot_Fragment;
@@ -43,6 +45,7 @@ import com.example.discovermada.ui.fragments.Search_Fragment;
 import com.example.discovermada.utils.NotificationUtils;
 import com.example.discovermada.utils.PreferenceUtils;
 import com.example.discovermada.utils.Utils;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Locale;
 
@@ -111,8 +114,34 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.item_settings) {
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
             return true;
+        }else if(id == R.id.item_exit){
+            new MaterialAlertDialogBuilder(MainActivity.this)
+                    .setTitle("Confirmation")
+                    .setMessage("Voulez-vous vous déconnecter")
+                    .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                            startActivity(intent);
+
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    })
+                    .show();
         }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showLogoutConfirmationDialog() {
+
+
     }
 
     @Override
