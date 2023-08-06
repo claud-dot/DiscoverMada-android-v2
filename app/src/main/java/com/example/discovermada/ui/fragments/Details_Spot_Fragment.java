@@ -187,7 +187,7 @@ public class Details_Spot_Fragment extends Fragment {
             public void run() {
                 photosTxt.setVisibility(View.VISIBLE);
             }
-        }, 1000);
+        }, 1500);
     }
 
 }
