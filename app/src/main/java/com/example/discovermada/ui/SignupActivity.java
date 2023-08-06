@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.discovermada.model.SignupResponse;
+import com.example.discovermada.utils.Constant;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -30,7 +31,7 @@ import okhttp3.Response;
 public class SignupActivity extends AppCompatActivity {
 
     private static final String TAG = "SignupActivity";
-    private static final String API_URL = "http://192.168.8.101:3000/api/user/signup";
+    private static final String API_URL = Constant.URL+"user/signup";
 
     private EditText editTextUsername;
     private EditText editTextEmail;

@@ -22,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.discovermada.model.LoginResponse;
+import com.example.discovermada.utils.Constant;
 import com.google.gson.Gson;
 
 import okhttp3.MediaType;
@@ -32,7 +33,7 @@ import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG= "LoginActivity";
-    private static final String API_URL="http://192.168.8.101:3000/api";
+    private static final String API_URL= Constant.URL;
 
     private EditText editTextEmailOrUsername;
     private EditText editTextPassword;
@@ -116,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(Void... voids){
-            String api_url=API_URL+"/user/signin";
+            String api_url=API_URL+"user/signin";
 
             OkHttpClient http= new OkHttpClient();
             MediaType mediaType= MediaType.parse("application/json");
