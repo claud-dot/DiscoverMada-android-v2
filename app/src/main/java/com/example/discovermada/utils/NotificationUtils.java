@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.provider.Settings;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -23,7 +24,6 @@ public class NotificationUtils {
 
         NotificationCompat.Builder builder = null;
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
-            Log.d("NOTIFICATION ====", "SHOW: ");
             builder =  new NotificationCompat.Builder(context, "discover_welcome_notif");
             builder.setContentTitle(context.getString(R.string.app_name));
             builder.setContentText(context.getString(R.string.welcome_notif_message));
@@ -40,10 +40,10 @@ public class NotificationUtils {
 
     public void createNotificationChannel(NotificationManager manager , Context context){
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
-            Log.d("NOTIFICATION ====", "CREATE: ");
-            NotificationChannel channel = new NotificationChannel("discover_welcome_notif", context.getString(R.string.app_name) , NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel = new NotificationChannel("discover_welcome_notif", context.getString(R.string.app_name) , NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription("Le description");
 
+            channel.setSound(Settings.System.DEFAULT_NOTIFICATION_URI, null);
             manager.createNotificationChannel(channel);
         }
     }

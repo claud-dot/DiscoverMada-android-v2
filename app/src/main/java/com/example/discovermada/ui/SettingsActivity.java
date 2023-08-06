@@ -15,6 +15,7 @@ import androidx.preference.PreferenceManager;
 import com.example.discovermada.R;
 import com.example.discovermada.ui.fragments.SettingsFragment;
 import com.example.discovermada.utils.PreferenceUtils;
+import com.example.discovermada.utils.Utils;
 
 import java.util.Locale;
 
@@ -23,8 +24,8 @@ public class SettingsActivity extends AppCompatActivity {
     private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Utils.redirectSession(this);
         super.onCreate(savedInstanceState);
-        PreferenceUtils.updateAppLanguageAndTheme(this);
         setContentView(R.layout.settings_activity);
 
         toolbar = findViewById(R.id.toolBar);
@@ -45,9 +46,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.item_search) {
-            return true;
-        } else if (id == android.R.id.home) {
+        if (id == android.R.id.home) {
             startActivity(new Intent(SettingsActivity.this, MainActivity.class));
             return true;
         }
@@ -60,7 +59,8 @@ public class SettingsActivity extends AppCompatActivity {
         if (fragmentManager.getBackStackEntryCount() > 0) {
             fragmentManager.popBackStack();
         } else {
-            super.onBackPressed();
+            startActivity(new Intent(SettingsActivity.this, MainActivity.class));
+            finish();
         }
     }
 }

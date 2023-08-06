@@ -1,31 +1,24 @@
 package com.example.discovermada.utils;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
-import android.os.Handler;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 
-import com.example.discovermada.R;
 import com.example.discovermada.api.ApiClient;
 import com.example.discovermada.api.ApiResponseCallback;
 import com.example.discovermada.api.ApiService;
 import com.example.discovermada.api.CallApiServiceImpl;
-import com.example.discovermada.api.JsonConverter;
 import com.example.discovermada.api.JsonConverterImpl;
-import com.example.discovermada.model.TouristSpots;
+import com.example.discovermada.model.LoginResponse;
 import com.example.discovermada.model.UserPreference;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -33,7 +26,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.List;
 import java.util.Locale;
 
 import okhttp3.ResponseBody;
@@ -41,40 +33,128 @@ import retrofit2.Call;
 
 public class PreferenceUtils {
 
-    public static boolean isNotified(Context context) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getBoolean("notif_preference", true);
+    private static  String PREF_NOTIFICATIONS_ENABLED = "notifications_enabled";
+    private static  String PREF_SELECTED_LANGUAGE = "selected_language";
+    private static  String PREF_DARK_MODE_ENABLED = "dark_mode_enabled";
+
+    private static String PREF_USER = "user_id";
+    private static String PREF_FIRST_LOG = "first_log";
+
+    public static boolean isFirstLogApp(Context context, String id_user){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user_prefs_"+id_user, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(PREF_FIRST_LOG+"_"+id_user, false);
     }
 
-    public static String currentLang(Context context) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getString("lang_preference", "fr");
+    public static void setFirstLogApp(Context context, String id_user , boolean enabled){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user_prefs_"+id_user, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(PREF_FIRST_LOG+"_"+id_user, enabled);
+        editor.apply();
     }
 
-    private static boolean isDarkModeEnabled(Context context) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getBoolean("mod_preference", true);
+    public static boolean areNotificationsEnabled(Context context, String id_user) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user_prefs_"+id_user, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(PREF_NOTIFICATIONS_ENABLED+"_"+id_user, true);
     }
 
-    public static void notifWelcome(Context context , NotificationManager manager){
+    public static void setNotificationsEnabled(Context context, boolean enabled , String id_user) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user_prefs_"+id_user, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(PREF_NOTIFICATIONS_ENABLED+"_"+id_user, enabled);
+        editor.apply();
+    }
+
+    public static String getSelectedLanguage(Context context, String id_user) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user_prefs_"+id_user, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(PREF_SELECTED_LANGUAGE+"_"+id_user, "fr");
+    }
+
+    public static void setSelectedLanguage(Context context, String language, String id_user) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user_prefs_"+id_user, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(PREF_SELECTED_LANGUAGE+"_"+id_user, language);
+        editor.apply();
+    }
+
+    public static boolean isDarkModeEnabled(Context context, String id_user) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user_prefs_"+id_user, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(PREF_DARK_MODE_ENABLED+"_"+id_user, false);
+    }
+
+    public static void setDarkModeEnabled(Context context, boolean enabled, String id_user) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user_prefs_"+id_user, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(PREF_DARK_MODE_ENABLED+"_"+id_user, enabled);
+        editor.apply();
+    }
+
+    public static void setUserPreference(Context context, LoginResponse.User user){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user_prefs_"+user.get_id(), Context.MODE_PRIVATE);
+        String preferenceKey = PREF_NOTIFICATIONS_ENABLED+"_"+user.get_id();
+        boolean isPreferenceStored = sharedPreferences.contains(preferenceKey);
+        if(!isPreferenceStored){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(PREF_NOTIFICATIONS_ENABLED+"_"+user.get_id(), true);
+            editor.putString(PREF_SELECTED_LANGUAGE+"_"+user.get_id(), "fr");
+            editor.putBoolean(PREF_DARK_MODE_ENABLED+"_"+user.get_id(), false);
+            editor.apply();
+        }else{
+            applyAppLanguage(context , user.get_id());
+            applyAppTheme(context , user.get_id());
+        }
+        setAppDisplayPreferences(context , user.get_id());
+    }
+
+    public static void setAppDisplayPreferences(Context context, String user_id) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user_prefs_"+user_id, Context.MODE_PRIVATE);
+
+        boolean notificationsEnabled = sharedPreferences.getBoolean(PREF_NOTIFICATIONS_ENABLED+"_"+user_id, true);
+        String selectedLanguage = sharedPreferences.getString(PREF_SELECTED_LANGUAGE+"_"+user_id, "fr");
+        boolean darkModeEnabled = sharedPreferences.getBoolean(PREF_DARK_MODE_ENABLED+"_"+user_id, false);
+
+        SharedPreferences displayPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = displayPreferences.edit();
+        editor.putBoolean("notifications_enabled", notificationsEnabled);
+        editor.putString("selected_language", selectedLanguage);
+        editor.putBoolean("dark_mode_enabled", darkModeEnabled);
+        editor.apply();
+    }
+
+    public static void setSettingApp(){
+
+    }
+
+    public static void clearSessionToken(Context context) {
+        setSessionToken(context, null);
+    }
+
+    public static String getSessionToken(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("session_token", null);
+    }
+
+    public static void setSessionToken(Context context, String sessionToken) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("session_token", sessionToken);
+        editor.apply();
+    }
+
+    public static void notifWelcome(Context context , String id_user , NotificationManager manager){
         NotificationUtils utils = new NotificationUtils();
-        SharedPreferences preferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
-        boolean isUserLoggedIn = preferences.getBoolean("isUserLoggedIn", false);
+        boolean isFirstLog = isFirstLogApp(context , id_user);
 
-        if (isUserLoggedIn && isNotified(context)) {
+        Log.d("NOTIFICATION ====>", "notifWelcome: "+isFirstLog);
+        if (isFirstLog && areNotificationsEnabled(context , id_user)) {
             utils.createNotificationChannel(manager , context);
             utils.showNotification(context);
 
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("isUserLoggedIn", false);
-            editor.apply();
+            setFirstLogApp(context , id_user , false);
         }
     }
 
-    public static void updateAppLanguageAndTheme(Context context) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String selectedLanguage = sharedPreferences.getString("lang_preference", "fr");
-        boolean darkModeEnabled = sharedPreferences.getBoolean("mod_preference", false);
+    public static void applyAppLanguage(Context context , String user_id) {
+        String selectedLanguage =  getSelectedLanguage(context, user_id);
 
         if (!getCurrentLanguage(context).equals(selectedLanguage)) {
             Locale newLocale = new Locale(selectedLanguage);
@@ -91,156 +171,33 @@ public class PreferenceUtils {
                 }
             }
         }
-        applyAppTheme(context, darkModeEnabled);
-    }
-
-    public static void  updateNotifPreference(SharedPreferences sharedPreferences , Context context){
-        boolean notificationsEnabled = sharedPreferences.getBoolean("notif_preference", true);
-
-        SharedPreferences userPrefs = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = userPrefs.edit();
-        editor.putBoolean("areNotificationsEnabled", notificationsEnabled);
-        editor.apply();
     }
 
     private static String getCurrentLanguage(Context context) {
         return context.getResources().getConfiguration().locale.getLanguage();
     }
 
-    public static void applyAppTheme(Context context , boolean isDarkMode) {
-        if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
+    public static void applyAppTheme(Context context , String user_id) {
+        boolean isDarkMode = isDarkModeEnabled(context , user_id);
+        int mode = isDarkMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO;
+        AppCompatDelegate.setDefaultNightMode(mode);
     }
 
 
     public static void restoreDefaultPreferences(Context context) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String user_id = getSessionToken(context);
+        Log.d("TAG", "restoreDefaultPreferences: "+user_id);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user_prefs_"+user_id, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("notif_preference", true);
-        editor.putBoolean("mod_preference", false);
-        editor.putString("lang_preference" , "fr");
+
+        editor.putBoolean(PREF_NOTIFICATIONS_ENABLED+"_"+user_id, true);
+        editor.putString(PREF_SELECTED_LANGUAGE+"_"+user_id, "fr");
+        editor.putBoolean(PREF_DARK_MODE_ENABLED+"_"+user_id, false);
         editor.apply();
 
-        updateAppLanguageAndTheme(context);
-//        resetAppSetting(context);
+        applyAppLanguage(context , user_id);
+        applyAppTheme(context , user_id);
+        setAppDisplayPreferences(context , user_id);
     }
 
-    private static void updateAppPreference(JSONObject preference, ApiResponseCallback callback) {
-        CallApiServiceImpl<Object> callApiService = new CallApiServiceImpl<>(new JsonConverterImpl<>(new TypeReference<Object>() {}));
-        ApiService apiService = ApiClient.getApiService();
-        Call<ResponseBody> call = apiService.changeSettingUser(preference, "64ce0d3a9e21252bfa4af2ab");
-        callApiService.handle(call, callback);
-    }
-
-    private static void resetAppPreference(ApiResponseCallback callback){
-        CallApiServiceImpl<Object> callApiService = new CallApiServiceImpl<>(new JsonConverterImpl<>(new TypeReference<Object>() {}));
-        ApiService apiService = ApiClient.getApiService();
-        Call<ResponseBody> call = apiService.resetSettingUser("64ce0d3a9e21252bfa4af2ab");
-        callApiService.handle(call, callback);
-    }
-
-    public static void getPreferenceUser(ApiResponseCallback callback){
-        CallApiServiceImpl<UserPreference> callApiService = new CallApiServiceImpl<>(new JsonConverterImpl<>(new TypeReference<UserPreference>() {}));
-        ApiService apiService = ApiClient.getApiService();
-        Call<ResponseBody> call = apiService.resetSettingUser("64ce0d3a9e21252bfa4af2ab");
-        callApiService.handle(call, callback);
-    }
-
-    public static void setAppPreference(Context context,String key){
-        try {
-            String preference = null;
-            String value = null;
-            if(key.contains("mod")){
-                preference = Constant.KEY_DARK_MODE_PREFERENCE;
-                value = isDarkModeEnabled(context) ? "true" : "false";
-            }else if (key.contains("lang")){
-                preference = Constant.KEY_LANG_PREFERENCE;
-                value = PreferenceUtils.currentLang(context);
-            } else if (key.contains("notif")) {
-                preference = Constant.KEY_NOFIED_PREFERENCE;
-                value = isNotified(context) ? "true" : "false";
-            }
-            JSONObject jsonPreference =  new JSONObject();
-            jsonPreference.put("item" , preference);
-            jsonPreference.put("value" , value);
-
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("preference" , jsonPreference);
-            updateAppPreference(jsonObject , new ApiResponseCallback() {
-                @Override
-                public void onSuccess(JSONObject data) throws JSONException, JsonProcessingException {
-                    Toast.makeText(context , data.getString("message") , Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onFailure(Throwable t) {
-                    t.printStackTrace();
-                }
-            });
-        }catch (Exception e){
-
-        }
-    }
-
-    public static  void resetAppSetting(Context context){
-        resetAppPreference(new ApiResponseCallback() {
-            @Override
-            public void onSuccess(JSONObject data) throws JSONException, JsonProcessingException {
-                Toast.makeText(context , data.getString("message") , Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
-
-    public static  void getAppSetting(Context context){
-        PreferenceUtils.getPreferenceUser(new ApiResponseCallback() {
-            @Override
-            public void onSuccess(JSONObject data) throws JSONException, JsonProcessingException {
-                JsonConverter<UserPreference> jsonConverter = new JsonConverterImpl<>((new TypeReference<UserPreference>() {}));
-                try {
-                    UserPreference userPreference = jsonConverter.convert(data.getJSONObject("data"));
-                    PreferenceUtils.initPreferenceUser(userPreference , context);
-                } catch (JsonProcessingException e) {
-                    throw new RuntimeException(e);
-                }
-
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-        });
-    }
-
-
-    public static void initPreferenceUser(UserPreference userPreference, Context context){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        if (!sharedPreferences.contains("notif_preference")) {
-            editor.putBoolean("notif_preference", userPreference.getNotificationEnabled());
-        }
-
-        if (!sharedPreferences.contains("mod_preference")) {
-            editor.putBoolean("mod_preference", userPreference.getDarkMode());
-        }
-
-        if (!sharedPreferences.contains("lang_preference")) {
-            editor.putString("lang_preference", userPreference.getLanguage());
-        }
-    }
-
-    public static boolean arePreferencesInitialized(Context context) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.contains("notif_preference")
-                && sharedPreferences.contains("mod_preference")
-                && sharedPreferences.contains("lang_preference");
-    }
 }

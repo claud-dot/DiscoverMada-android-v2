@@ -44,14 +44,12 @@ public class TouristSpotsManager {
                     try {
                         responseData = response.body().string();
                         JSONObject touristSpots = new JSONObject(responseData);
-                        Log.d("TAG====>", "onResponse: "+touristSpots);
                         List<Object> objects= new ArrayList<>();
                         JSONArray data =  touristSpots.getJSONArray("data");
 
 
                         ObjectMapper objectMapper = new ObjectMapper();
                         List<TouristSpots> touristSpots1 = objectMapper.readValue(data.toString(), new TypeReference<List<TouristSpots>>() {});
-                        Log.d("dfjkdfjkld *** ", "-------------- + "+ touristSpots1.get(0).getName());
                         listener.onSuccess(objects);
                     } catch (Exception e) {
                         throw new RuntimeException(e);

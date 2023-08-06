@@ -80,13 +80,13 @@ public class Search_Fragment extends Fragment {
             requestBody.put("searchKeyword", query);
             CallApiServiceImpl<List<TouristSpots>> callApiService = new CallApiServiceImpl<>(new JsonConverterImpl<>(new TypeReference<List<TouristSpots>>() {}));
             ApiService apiService = ApiClient.getApiService();
-            Call<ResponseBody> call = apiService.getSpotSearch(requestBody , PreferenceUtils.currentLang(requireContext()));
+            String id_user = PreferenceUtils.getSessionToken(requireContext());
+            Call<ResponseBody> call = apiService.getSpotSearch(requestBody , PreferenceUtils.getSelectedLanguage(requireContext() , id_user));
             callApiService.handle(call, new ApiResponseCallback() {
                 @Override
                 public void onSuccess(JSONObject data) throws JSONException, JsonProcessingException {
                     JsonConverter<List<TouristSpots>> jsonConverter = new JsonConverterImpl<>((new TypeReference<List<TouristSpots>>() {}));
                     List<TouristSpots> touristSpots = jsonConverter.convert(data.getJSONArray("data"));
-                    Log.d("Search result ===< ", "onSuccess: "+data.getJSONArray("data"));
                     FireBaseClient baseClient = new FireBaseClient(storage);
                     ListSpotAdapter adapterForList = new ListSpotAdapter(touristSpots , baseClient , new ListSpotAdapter.OnItemClickListener() {
                         @Override

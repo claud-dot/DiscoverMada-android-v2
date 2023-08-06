@@ -106,7 +106,6 @@ public class Details_Spot_Fragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        Log.d("BACK ", "onOptionsItemSelected: *");
         if (id == android.R.id.home) {
             requireActivity().getSupportFragmentManager().popBackStack();
             return true;
@@ -117,7 +116,8 @@ public class Details_Spot_Fragment extends Fragment {
    public void getDetailsSpot(String idSpot){
         CallApiServiceImpl<List<TouristSpots>> callApiService = new CallApiServiceImpl<>(new JsonConverterImpl<>(new TypeReference<List<TouristSpots>>() {}));
         ApiService apiService = ApiClient.getApiService();
-        Call<ResponseBody> call = apiService.getDetailsSpot(idSpot , PreferenceUtils.currentLang(requireContext()));
+        String id_user = PreferenceUtils.getSessionToken(requireContext());
+        Call<ResponseBody> call = apiService.getDetailsSpot(idSpot , PreferenceUtils.getSelectedLanguage(requireContext() , id_user));
         callApiService.handle(call, new ApiResponseCallback() {
             @Override
             public void onSuccess(JSONObject data) throws JSONException {
@@ -189,6 +189,5 @@ public class Details_Spot_Fragment extends Fragment {
             }
         }, 1000);
     }
-
 
 }

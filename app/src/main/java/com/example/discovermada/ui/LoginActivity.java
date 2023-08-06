@@ -1,9 +1,13 @@
 package com.example.discovermada.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.preference.PreferenceManager;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.discovermada.R;
@@ -23,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.discovermada.model.LoginResponse;
 import com.example.discovermada.utils.Constant;
+import com.example.discovermada.utils.PreferenceUtils;
 import com.google.gson.Gson;
 
 import okhttp3.MediaType;
@@ -45,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
 
         editTextEmailOrUsername = findViewById(R.id.editTextUsername);
         editTextPassword = findViewById(R.id.editTextPassword);
@@ -150,16 +157,17 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             if (result != null) {
-                Log.d(TAG, "API Response: " + result);
                 Gson gson = new Gson();
                 LoginResponse loginResponse = gson.fromJson(result, LoginResponse.class);
 
                 if (loginResponse.getError() == 0) {
-                    LoginResponse.User user = loginResponse.getResponse();
-                    Log.d(TAG, "Login successful. User ID: " + user.get_id());
                     showProgressDialog();
                     Toast.makeText(LoginActivity.this, "Login success. ", Toast.LENGTH_SHORT).show();
                     startMainActivity();
+                    LoginResponse.User user = loginResponse.getResponse();
+                    PreferenceUtils.setSessionToken(LoginActivity.this , user.get_id());
+                    PreferenceUtils.setFirstLogApp(LoginActivity.this , user.get_id(),true );
+                    PreferenceUtils.setUserPreference(LoginActivity.this,user);
                 } else {
                     Log.e(TAG, "Login failed. Error message: " + loginResponse.getErrorMessage());
                     hideProgressDialog();

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -22,7 +23,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
 import com.example.discovermada.R;
+import com.example.discovermada.ui.LoginActivity;
 import com.example.discovermada.ui.MainActivity;
+import com.example.discovermada.ui.SettingsActivity;
 import com.example.discovermada.ui.fragments.List_Spot_Fragment;
 import com.example.discovermada.ui.fragments.Search_Fragment;
 
@@ -90,7 +93,11 @@ public class Utils {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setMessage(activity.getString(R.string.exit_app_message));
         builder.setPositiveButton(activity.getString(R.string.restor_accept_show), (dialog, which) -> {
-            activity.finishAffinity();
+            PreferenceUtils.clearSessionToken(activity);
+            Intent intent = new Intent(activity, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            activity.startActivity(intent);
+            activity.finish();
         });
         builder.setNegativeButton(activity.getString(R.string.restor_refuse_show), (dialog, which) -> {
         });
@@ -114,4 +121,13 @@ public class Utils {
             });
         }
     }
+
+    public static  void redirectSession(Context context){
+        String session = PreferenceUtils.getSessionToken(context);
+        Log.d("SESSION ========>>>> ", "redirectSession: "+session);
+        if(session==null){
+            context.startActivity(new Intent(context, LoginActivity.class));
+        }
+    }
+
 }

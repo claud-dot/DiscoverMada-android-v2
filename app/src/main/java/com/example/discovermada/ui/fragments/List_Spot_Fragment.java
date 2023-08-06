@@ -101,7 +101,8 @@ public class List_Spot_Fragment extends Fragment {
     private void getTouristSpots(int page, ApiResponseCallback callback) {
         CallApiServiceImpl<List<TouristSpots>> callApiService = new CallApiServiceImpl<>(new JsonConverterImpl<>(new TypeReference<List<TouristSpots>>() {}));
         ApiService apiService = ApiClient.getApiService();
-        Call<ResponseBody> call = apiService.getTouristSpots(page, PreferenceUtils.currentLang(requireContext()));
+        String id_user = PreferenceUtils.getSessionToken(requireContext());
+        Call<ResponseBody> call = apiService.getTouristSpots(page, PreferenceUtils.getSelectedLanguage(requireContext() , id_user));
         callApiService.handle(call, callback);
     }
 

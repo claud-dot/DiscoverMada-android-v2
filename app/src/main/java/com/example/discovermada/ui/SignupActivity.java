@@ -148,7 +148,6 @@ public class SignupActivity extends AppCompatActivity {
             super.onPostExecute(result);
             if (result != null) {
                 // Process the API response here
-                Log.d(TAG, "API Response: " + result);
                 Gson gson = new Gson();
                 SignupResponse signupResponse = gson.fromJson(result, SignupResponse.class);
 

@@ -11,7 +11,7 @@
         android:id="@+id/imageViewBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/bg_login"
+        style="@style/bg_auth"
         android:scaleType="centerCrop"
         />
 
@@ -96,6 +96,7 @@
                     android:text="Connexion"
                     app:backgroundTint="@color/colorPrimary"
                     app:cornerRadius="4dp"
+                    android:textColor="@color/colorWhite"
                     app:rippleColor="@color/colorAccent" />
 
                 <TextView
@@ -105,7 +106,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="16dp"
                     android:text="Pas encore de compte? Enregistrez-vous"
-                    android:textColor="@android:color/holo_blue_light"
+                    android:textColor="@color/text_secondary_login"
                     android:paddingBottom="12dp"
                     />
 

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.SplashActivity"
-    android:background="@color/colorWhite">
+    style="@style/SCREEN"
+    >
 
     <ImageView
         android:id="@+id/imageViewLogo"
@@ -32,6 +33,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:text="All rights are reserved"
-        android:textColor="#F8F8F8"
+        android:textColor="@color/text_color_primary"
         android:textSize="16sp" />
 </RelativeLayout>

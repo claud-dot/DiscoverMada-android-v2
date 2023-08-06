@@ -7,7 +7,7 @@
 
         <SwitchPreference
             app:defaultValue="true"
-            android:key="notif_preference"
+            android:key="notifications_enabled"
             android:title="@string/notification"
             android:summaryOn="@string/notification_enabled_summary"
             android:summaryOff="@string/notification_disabled_summary" />
@@ -20,13 +20,13 @@
         android:iconSpaceReserved="false">
 
         <SwitchPreference
-            android:key="mod_preference"
+            android:key="dark_mode_enabled"
             android:title="@string/dark_mode"
             android:summaryOn="@string/dark_mode_enabled_summary"
             android:summaryOff="@string/dark_mode_disabled_summary" />
 
         <ListPreference
-            android:key="lang_preference"
+            android:key="selected_language"
             app:defaultValue="fr"
             android:title="@string/default_language"
             android:summary="%s"

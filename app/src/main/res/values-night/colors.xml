@@ -16,4 +16,5 @@
     <color name="colorLightGrey">#999999</color>
     <color name="colorRed">#F44336</color>
     <color name="colorStandByBrown">#FCAA67</color>
+    <color name="text_secondary_login">#FFFFFF</color>
 </resources>
