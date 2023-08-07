@@ -20,6 +20,11 @@
                     android:padding="10dp"
                     android:orientation="vertical"
                     >
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:src="@drawable/discover"
+                            />
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
