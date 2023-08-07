@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //souligner texte inscription
         TextView tv = (TextView) findViewById(R.id.textViewInscription);
-        SpannableString content = new SpannableString(tv.getText());
+        SpannableString content = new SpannableString(getString(R.string.signup_link_login));
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         tv.setText(content);
         tv.setOnClickListener(new View.OnClickListener() {

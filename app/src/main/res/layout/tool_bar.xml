@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolBar"
+    app:logo="@drawable/logo_app_bar"
     app:title="@string/app_name"
     app:menu="@menu/menu_main"
    android:theme="@style/Tool_bar_style">

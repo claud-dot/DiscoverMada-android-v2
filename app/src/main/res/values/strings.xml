@@ -40,6 +40,23 @@
     <string name="title_list_spot">The best tourist attractions of Madagascar</string>
     <string name="sub_title_list_spot">Guides of the best tourist attractions to discover during your trip to Madagascar</string>
 
+    <!--Ecran login -->
+    <string name="email_input_login">Email or username</string>
+    <string name="password_input_login">Password</string>
+    <string name="button_login">Signing</string>
+    <string name="signup_link_login">No account?Create one</string>
+
+    <!--Ecran incscription -->
+    <string name="email_input_signup">Email</string>
+    <string name="username_input_signup">Username</string>
+    <string name="signup_button">Signup</string>
+    <string name="confirm_password">Confirm password</string>
+
+    <!--logout screen -->
+    <string name="confirm_logout">Do you want to logout?</string>
+    <string name="button_validate">Yes</string>
+    <string name="button_cancel">Cancel</string>
+
     <string-array name="langues">
         <item>French</item>
         <item>English</item>

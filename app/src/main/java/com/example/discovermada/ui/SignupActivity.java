@@ -36,6 +36,8 @@ public class SignupActivity extends AppCompatActivity {
     private EditText editTextUsername;
     private EditText editTextEmail;
     private EditText editTextPassword;
+
+    private EditText editTextPasswordConfirm;
     private Button buttonSignup;
 
     private ProgressDialog progressDialog;
@@ -48,6 +50,7 @@ public class SignupActivity extends AppCompatActivity {
         editTextUsername = findViewById(R.id.editTextUsername);
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
+        editTextPasswordConfirm=findViewById(R.id.editTextConfirmPassword);
         buttonSignup = findViewById(R.id.buttonSignup);
 
         buttonSignup.setOnClickListener(new View.OnClickListener() {
@@ -56,10 +59,16 @@ public class SignupActivity extends AppCompatActivity {
                 String username = editTextUsername.getText().toString().trim();
                 String email = editTextEmail.getText().toString().trim();
                 String password = editTextPassword.getText().toString();
+                String confirmPassword=editTextPasswordConfirm.getText().toString();
 
                 // Validate email and username
                 if (email.isEmpty() || username.isEmpty()) {
                     Toast.makeText(SignupActivity.this, "Please enter email and username.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(!confirmPassword.equals(password)){
+                    Toast.makeText(SignupActivity.this, "Please enter the same password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

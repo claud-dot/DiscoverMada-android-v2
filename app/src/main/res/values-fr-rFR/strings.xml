@@ -40,6 +40,22 @@
     <string name="title_list_spot">Les meilleures attractions touristiques de Madagascar</string>
     <string name="sub_title_list_spot">Guide des meilleures attractions touristiques à découvrir lors de votre voyage à Madagascar</string>
 
+    <!--Ecran login -->
+    <string name="email_input_login">Adresse mail ou nom utilisateur</string>
+    <string name="password_input_login">Mot de passe</string>
+    <string name="button_login">Connexion</string>
+    <string name="signup_link_login">Pas encore de compte? Créez-en un</string>
+    <!--Ecran incscription -->
+    <string name="email_input_signup">Adresse mail</string>
+    <string name="username_input_signup">Nom utilisateur</string>
+    <string name="signup_button">Valider</string>
+    <string name="confirm_password">Confirmer mot de passe</string>
+
+    <!--logout screen -->
+    <string name="confirm_logout">Voulez-vous vous déconnecter</string>
+    <string name="button_validate">Valider</string>
+    <string name="button_cancel">Annuler</string>
+
     <string-array name="langues">
         <item>Français</item>
         <item>Anglais</item>
