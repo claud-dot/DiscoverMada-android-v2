@@ -9,10 +9,13 @@ import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.app.ActivityManager;
 import android.app.NotificationManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,6 +27,8 @@ import com.example.discovermada.ui.fragments.List_Spot_Fragment;
 import com.example.discovermada.ui.fragments.Search_Fragment;
 import com.example.discovermada.utils.PreferenceUtils;
 import com.example.discovermada.utils.Utils;
+
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -39,13 +44,7 @@ public class MainActivity extends AppCompatActivity {
         Utils.redirectSession(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        user_session = PreferenceUtils.getSessionToken(this);
-
-        PreferenceUtils.applyAppLanguage(this , user_session);
-        PreferenceUtils.applyAppTheme(this , user_session);
-        PreferenceUtils.notifWelcome(this,user_session, manager );
-
+        initPreference();
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         Utils.initActionBar(this,toolbar);
@@ -110,10 +109,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void showLogoutConfirmationDialog() {
-
-
-    }
 
     @Override
     public void onBackPressed() {
@@ -131,5 +126,18 @@ public class MainActivity extends AppCompatActivity {
     public void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Utils.replaceFragment(fragmentManager, R.id.container, fragment);
+    }
+
+    private void initPreference(){
+        Intent mIntent = getIntent();
+        String previousActivity= mIntent.getStringExtra("FROM_ACTIVITY");
+        user_session = PreferenceUtils.getSessionToken(this);
+        PreferenceUtils.applyAppLanguage(this , user_session);
+        PreferenceUtils.applyAppTheme(this , user_session);
+        if (previousActivity!=null && previousActivity.equals("login")){
+            manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            PreferenceUtils.notifWelcome(this,user_session, manager );
+            mIntent.putExtra("FROM_ACTIVITY", (String) null);
+       }
     }
 }

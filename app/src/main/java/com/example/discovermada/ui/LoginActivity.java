@@ -108,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void startMainActivity() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        intent.putExtra("FROM_ACTIVITY" , "login");
         // If you need to pass any data to the main activity, you can add extras to the intent here.
         startActivity(intent);
         // Finish the login activity if you don't want the user to return to it when pressing the back button.
@@ -163,11 +164,11 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginResponse.getError() == 0) {
                     showProgressDialog();
                     Toast.makeText(LoginActivity.this, "Login success. ", Toast.LENGTH_SHORT).show();
-                    startMainActivity();
                     LoginResponse.User user = loginResponse.getResponse();
                     PreferenceUtils.setSessionToken(LoginActivity.this , user.get_id());
                     PreferenceUtils.setFirstLogApp(LoginActivity.this , user.get_id(),true );
                     PreferenceUtils.setUserPreference(LoginActivity.this,user);
+                    startMainActivity();
                 } else {
                     Log.e(TAG, "Login failed. Error message: " + loginResponse.getErrorMessage());
                     hideProgressDialog();

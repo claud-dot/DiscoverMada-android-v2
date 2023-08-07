@@ -59,7 +59,8 @@ public class SettingsActivity extends AppCompatActivity {
         if (fragmentManager.getBackStackEntryCount() > 0) {
             fragmentManager.popBackStack();
         } else {
-            startActivity(new Intent(SettingsActivity.this, MainActivity.class));
+            Intent mainIntent = new Intent(SettingsActivity.this, MainActivity.class);
+            startActivity(mainIntent);
             finish();
         }
     }
