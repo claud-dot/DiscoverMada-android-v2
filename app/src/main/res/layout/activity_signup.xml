@@ -17,13 +17,14 @@
 
     <ImageView
         android:id="@+id/imageViewLogo"
-        android:layout_width="388dp"
-        android:layout_height="228dp"
+        android:layout_width="209dp"
+        android:layout_height="126dp"
         android:src="@drawable/discover"
         app:layout_constraintBottom_toTopOf="@+id/nestedScrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.87" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
@@ -48,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Email">
+                android:hint="@string/email_input_signup">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextEmail"
@@ -63,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Username">
+                android:hint="@string/username_input_signup">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextUsername"
@@ -80,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
-                android:hint="Mot de passe"
+                android:hint="@string/password_input_login"
                 app:endIconMode="password_toggle"
                 app:endIconTint="@color/colorAccent"
                 app:endIconContentDescription="Toggle Password Visibility">
@@ -98,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Confirm Password"
+                android:hint="@string/confirm_password"
                 android:orientation="vertical"
                 app:endIconMode="password_toggle"
                 app:endIconTint="@color/colorAccent"
@@ -120,7 +121,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Signup"
+                android:text="@string/signup_button"
                 app:backgroundTint="@color/colorPrimary"
                 app:cornerRadius="4dp"
                 android:textColor="@color/colorWhite"
@@ -134,6 +135,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.42" />
+        app:layout_constraintGuide_percent="0.33" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Adresse mail ou nom utilisateur">
+                    android:hint="@string/email_input_login">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editTextUsername"
@@ -73,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:orientation="vertical"
-                    android:hint="Mot de passe"
+                    android:hint="@string/password_input_login"
                     app:endIconMode="password_toggle"
                     app:endIconTint="@color/colorAccent"
                     app:endIconContentDescription="Toggle Password Visibility">
@@ -93,7 +93,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Connexion"
+                    android:text="@string/button_login"
                     app:backgroundTint="@color/colorPrimary"
                     app:cornerRadius="4dp"
                     android:textColor="@color/colorWhite"
