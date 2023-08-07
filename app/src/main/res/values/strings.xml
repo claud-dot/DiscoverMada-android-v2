@@ -49,4 +49,6 @@
         <item>fr</item>
         <item>en</item>
     </string-array>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

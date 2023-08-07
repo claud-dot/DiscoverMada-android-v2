@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -113,7 +114,13 @@ public class Details_Spot_Fragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-   public void getDetailsSpot(String idSpot){
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        listSpotImg.clear();
+    }
+
+    public void getDetailsSpot(String idSpot){
         CallApiServiceImpl<List<TouristSpots>> callApiService = new CallApiServiceImpl<>(new JsonConverterImpl<>(new TypeReference<List<TouristSpots>>() {}));
         ApiService apiService = ApiClient.getApiService();
         String id_user = PreferenceUtils.getSessionToken(requireContext());
@@ -144,7 +151,9 @@ public class Details_Spot_Fragment extends Fragment {
     private void generateView(TouristSpots spots , FireBaseClient fireBaseClient){
         List<String> urls = new ArrayList<>(Arrays.asList(spots.getImages()));
         urls.add(1,spots.getImages()[0]);
+        onEventImage(listSpotImg , urls);
         fireBaseClient.setMediaViews( urls, listSpotImg);
+
         Utils utils = new Utils(requireContext());
 
         int backgroundColor = ContextCompat.getColor(requireContext(), R.color.all_background_color);
@@ -188,6 +197,27 @@ public class Details_Spot_Fragment extends Fragment {
                 photosTxt.setVisibility(View.VISIBLE);
             }
         }, 1500);
+    }
+
+    private void onEventImage(List<ImageView> imageViews , List<String> urls){
+        for (int i = 0; i < imageViews.size()-1; i++) {
+            final int position = i;
+            ImageView imageView = imageViews.get(i);
+            int finalI = i;
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    if (mainActivity != null) {
+                        ActionBar actionBar = mainActivity.getSupportActionBar();
+                        if(actionBar!=null)actionBar.hide();
+                        ArrayList<String> imageUrls = new ArrayList<>(urls);
+                        mainActivity.replaceFragment(FullscreenImageFragment.newInstance(imageUrls , finalI));
+                    }
+                }
+
+            });
+        }
     }
 
 }

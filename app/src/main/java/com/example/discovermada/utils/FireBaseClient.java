@@ -4,17 +4,17 @@ import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 
-import com.example.discovermada.api.MediaLoadListener;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.util.List;
 
@@ -25,7 +25,45 @@ public class FireBaseClient {
         this.storage = storage;
     }
 
-    public void setMediaViews(List<String> urls, List<ImageView> views) {
+    public void setSingleImageViewWithGlide(String url, ImageView view) {
+        StorageReference storageRef = storage.getReference().child(url);
+
+        Glide.with(view.getContext())
+                .load(storageRef)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(view);
+    }
+
+    public void setSingleImageView(String url, ImageView view , ProgressBar progressBar, ImageLoadListener imageLoadListener) {
+        StorageReference storageRef = storage.getReference().child(url);
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                String imageURL = uri.toString();
+                Picasso.get().load(imageURL).into(view);
+                if (imageLoadListener != null) {
+                    imageLoadListener.onImageLoaded();
+                }
+                if (progressBar != null) {
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("FIRE BASE FAIL ====>", "onFailure: " + e.getMessage());
+                if (imageLoadListener != null) {
+                    imageLoadListener.onImageFailure(e);
+                }
+                if (progressBar != null) {
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
+    public void setMediaViews(List<String> urls, List<ImageView> views ) {
         if (urls.size() != views.size()) {
             throw new IllegalArgumentException("Le nombre d'URLs doit être égal au nombre de vues.");
         }
@@ -33,19 +71,13 @@ public class FireBaseClient {
         for (int i = 0; i < urls.size(); i++) {
             String url = urls.get(i);
             ImageView view = views.get(i);
-            StorageReference storageRef = storage.getReference().child(url);
-            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    String imageURL = uri.toString();
-                    Picasso.get().load(imageURL).into(view);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.d("FIRE BASE FAIL ====>", "onFailure: " + e.getMessage());
-                }
-            });
+
+            setSingleImageView(url, view , null, null);
         }
+    }
+
+    public interface ImageLoadListener {
+        void onImageLoaded();
+        void onImageFailure(Exception e);
     }
 }

@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,8 @@ public class ListSpotAdapter extends RecyclerView.Adapter<ListSpotAdapter.ViewHo
     private List<TouristSpots> spotsList; // Liste des objets TouristSpots
     private FireBaseClient fireBaseClient;
     private OnItemClickListener onItemListener;
+
+    private List<ProgressBar> progressBars;
 
     public ListSpotAdapter(List<TouristSpots> spotsList , FireBaseClient fireBaseClient , OnItemClickListener listener) {
         this.spotsList = spotsList;
@@ -44,13 +47,11 @@ public class ListSpotAdapter extends RecyclerView.Adapter<ListSpotAdapter.ViewHo
         holder.textViewTitle.setText(spot.getName());
         holder.textViewDescription.setText(spot.getDescription());
 
-//        Utils.setMaxLinesForDescription(holder.textViewDescription);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (onItemListener != null) {
                     onItemListener.onItemClick(spot);
-//                    Toast.makeText(view.getContext(),"click on item: "+spot.getDescription(),Toast.LENGTH_LONG).show();
                 }
             }
         });

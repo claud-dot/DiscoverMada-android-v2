@@ -10,24 +10,20 @@
         <item name="fontFamily">@font/popin_bold</item>
         <item name="color">@color/text_color_primary</item>
     </style>
-    <style name="sub_title"  parent="Theme.DiscoverMada.Light">
+
+    <style name="sub_title" parent="Theme.DiscoverMada.Light">
         <item name="fontFamily">@font/popin_regular</item>
         <item name="color">@color/text_color_secondary</item>
     </style>
-    <style name="title_list"   parent="Theme.DiscoverMada.Light">
+
+    <style name="title_list" parent="Theme.DiscoverMada.Light">
         <item name="fontFamily">@font/popin_bold</item>
         <item name="android:textColor">@color/text_item_color_primary</item>
     </style>
-    <style name="sub_title_list"  parent="Theme.DiscoverMada.Light">
+
+    <style name="sub_title_list" parent="Theme.DiscoverMada.Light">
         <item name="fontFamily">@font/popin_regular</item>
         <item name="android:textColor">@color/text_item_color_secondary</item>
-    </style>
-
-    <style name="PreferenceStyle">
-        <!-- Ajoutez ici les attributs de style pour les préférences -->
-        <item name="android:textColor">#FF0000</item>
-        <item name="android:textSize">18sp</item>
-        <!-- Ajoutez d'autres attributs personnalisés ici -->
     </style>
 
     <style name="shape_style" parent="Theme.DiscoverMada.Light">
@@ -41,6 +37,10 @@
     <style name="image_item_corner" parent="Theme.DiscoverMada.Light">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">10dp</item>
+    </style>
+
+    <style name="buton_round" parent="Theme.DiscoverMada.Light">
+        <item name="background">@drawable/round_radius_contenair</item>
     </style>
 
     <style name="SCREEN" parent="Theme.DiscoverMada.Light">
@@ -60,7 +60,7 @@
         <item name="color">@color/text_item_color_primary</item>
     </style>
 
-    <style name="Tool_bar_style" parent="@style/Widget.Material3.Toolbar" >
+    <style name="Tool_bar_style" parent="@style/Widget.Material3.Toolbar">
         <item name="android:background">@color/background_item_color</item>
         <item name="fontFamily">@font/popin_regular</item>
         <item name="android:gravity">center</item>
@@ -73,11 +73,16 @@
         <item name="colorSurface">@color/colorWhite</item>
     </style>
 
-    <style name="icon_app" >
+    <style name="icon_app">
         <item name="color">@color/icon_color</item>
     </style>
 
     <style name="Theme.DiscoverMada.Light" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorSurface">@color/colorWhite</item>
+    </style>
+
+    <style name="ThemeOverlay.DiscoverMada.FullscreenContainer" parent="">
+        <item name="fullscreenBackgroundColor">@color/light_blue_600</item>
+        <item name="fullscreenTextColor">@color/light_blue_A200</item>
     </style>
 </resources>
