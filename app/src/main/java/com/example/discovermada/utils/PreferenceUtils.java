@@ -144,7 +144,6 @@ public class PreferenceUtils {
         NotificationUtils utils = new NotificationUtils();
         boolean isFirstLog = isFirstLogApp(context , id_user);
 
-        Log.d("NOTIFICATION ====>", "notifWelcome: "+isFirstLog);
         if (isFirstLog && areNotificationsEnabled(context , id_user)) {
             utils.createNotificationChannel(manager , context);
             utils.showNotification(context);

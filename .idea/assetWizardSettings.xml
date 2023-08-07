@@ -80,8 +80,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="D:\Dev\Front\Android\DiscoverMada\app\src\main\res\drawable\splash_logo.png" />
-                                                <entry key="scalingPercent" value="120" />
+                                                <entry key="imagePath" value="C:\Users\PC\Downloads\splash_logo.png" />
+                                                <entry key="scalingPercent" value="55" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -318,9 +318,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="a7a7a7" />
-                            <entry key="outputName" value="baseline_exit_to_app_24" />
-                            <entry key="sourceFile" value="D:\Dev\Front\Android\DiscoverMada" />
+                            <entry key="outputName" value="fv5z5h01" />
+                            <entry key="sourceFile" value="C:\Users\PC\Downloads\fv5z5h01.svg" />
                           </map>
                         </option>
                       </PersistentState>

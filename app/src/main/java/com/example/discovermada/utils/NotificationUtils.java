@@ -27,7 +27,7 @@ public class NotificationUtils {
             builder =  new NotificationCompat.Builder(context, "discover_welcome_notif");
             builder.setContentTitle(context.getString(R.string.app_name));
             builder.setContentText(context.getString(R.string.welcome_notif_message));
-            builder.setSmallIcon(R.drawable.notification);
+            builder.setSmallIcon(R.drawable.discover_vector);
             builder.setPriority(Notification.PRIORITY_DEFAULT);
             builder.setContentIntent(pendingIntent);
             builder.setAutoCancel(true);
