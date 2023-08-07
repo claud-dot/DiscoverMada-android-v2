@@ -122,4 +122,5 @@ public class FullscreenImageFragment extends Fragment {
             }
         });
     }
+
 }

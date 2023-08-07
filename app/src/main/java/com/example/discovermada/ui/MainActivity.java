@@ -1,6 +1,7 @@
 package com.example.discovermada.ui;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -121,6 +122,10 @@ public class MainActivity extends AppCompatActivity {
             manager.popBackStack();
         } else {
             Utils.showExitConfirmationDialog(this);
+        }
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.show();
         }
     }
     public void replaceFragment(Fragment fragment) {
